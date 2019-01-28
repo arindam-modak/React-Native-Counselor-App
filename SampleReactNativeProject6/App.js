@@ -5,6 +5,7 @@ import BoardScreen from './components/BoardScreen';
 import BoardDetailScreen from './components/BoardDetailScreen';
 import AddBoardScreen from './components/AddBoardScreen';
 import EditBoardScreen from './components/EditBoardScreen';
+import CollapsableList from './components/CollapsableList';
 
 const RootStack = createStackNavigator(
   {
@@ -12,6 +13,7 @@ const RootStack = createStackNavigator(
     BoardDetails: BoardDetailScreen,
     AddBoard: AddBoardScreen,
     EditBoard: EditBoardScreen,
+    CollapseList: CollapsableList,
   },
   {
     initialRouteName: 'Board',
