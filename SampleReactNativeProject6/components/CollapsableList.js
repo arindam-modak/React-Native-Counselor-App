@@ -8,6 +8,8 @@ import {
   View,
   Image,
   ScrollView} from 'react-native';
+import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
+import { Thumbnail, List, ListItem, Separator } from 'native-base';
 import Panel from './components/Panel';
 
 class CollapsableList extends Component {
@@ -19,7 +21,24 @@ class CollapsableList extends Component {
   render() {
     return (
       <ScrollView style={ Style.list_container}>
-
+       <Collapse>
+      <CollapseHeader>
+        <Separator bordered>
+          <Text>FORWARD</Text>
+        </Separator>
+      </CollapseHeader>
+      <CollapseBody>
+        <ListItem >
+          <Text>Aaron Bennet</Text>
+        </ListItem>
+        <ListItem>
+          <Text>Claire Barclay</Text>
+        </ListItem>
+        <ListItem last>
+          <Text>Kelso Brittany</Text>
+        </ListItem>
+      </CollapseBody>
+    </Collapse>
                <Text style={{ fontSize: 23,
                 padding:3,
                 textAlign: 'center',

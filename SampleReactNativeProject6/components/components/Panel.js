@@ -97,7 +97,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row'
     },
     title       : {
-        flex    : 1,
+        flex    : 0.5,
         padding : 10,
         color   :'#2a2f43',
         fontWeight:'bold'
