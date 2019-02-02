@@ -7,6 +7,7 @@ import AddBoardScreen from './components/AddBoardScreen';
 import EditBoardScreen from './components/EditBoardScreen';
 import CollapsableList from './components/CollapsableList';
 
+
 const RootStack = createStackNavigator(
   {
     Board: BoardScreen,

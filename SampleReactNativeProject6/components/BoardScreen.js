@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator, View, Text } from 'react-native';
 import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from '../Firebase';
+import SplashScreen from 'react-native-splash-screen';
 
 class BoardScreen extends Component {
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Board List',
@@ -54,6 +56,7 @@ class BoardScreen extends Component {
 
   componentDidMount() {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    SplashScreen.hide();
   }
 
   render() {

@@ -7,38 +7,71 @@ import {
   Text,
   View,
   Image,
-  ScrollView} from 'react-native';
+  ScrollView,
+  BackHandler } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import { Thumbnail, List, ListItem, Separator } from 'native-base';
 import Panel from './components/Panel';
 
 class CollapsableList extends Component {
 
-  constructor() {
-     super();
+  constructor(props) {
+     super(props);
+     this.handleBackPress = this.handleBackPress.bind(this);
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleBackPress = () => {
+    this.props.navigation.goBack(null); // works best when the goBack is async
+    return true;
   }
 
   render() {
     return (
       <ScrollView style={ Style.list_container}>
        <Collapse>
-      <CollapseHeader>
-        <Separator bordered>
-          <Text>FORWARD</Text>
-        </Separator>
-      </CollapseHeader>
-      <CollapseBody>
-        <ListItem >
-          <Text>Aaron Bennet</Text>
-        </ListItem>
-        <ListItem>
-          <Text>Claire Barclay</Text>
-        </ListItem>
-        <ListItem last>
-          <Text>Kelso Brittany</Text>
-        </ListItem>
-      </CollapseBody>
-    </Collapse>
+        <CollapseHeader>
+          <Separator bordered>
+            <Text>FORWARD</Text>
+          </Separator>
+        </CollapseHeader>
+        <CollapseBody>
+          <ListItem >
+            <Text>Aaron Bennet</Text>
+          </ListItem>
+          <ListItem>
+            <Text>Claire Barclay</Text>
+          </ListItem>
+          <ListItem last>
+            <Text>Kelso Brittany</Text>
+          </ListItem>
+        </CollapseBody>
+      </Collapse>
+      <Collapse>
+        <CollapseHeader>
+          <Separator bordered>
+            <Text>FORWARD</Text>
+          </Separator>
+        </CollapseHeader>
+        <CollapseBody>
+          <ListItem >
+            <Text>Aaron Bennet</Text>
+          </ListItem>
+          <ListItem>
+            <Text>Claire Barclay</Text>
+          </ListItem>
+          <ListItem last>
+            <Text>Kelso Brittany</Text>
+          </ListItem>
+        </CollapseBody>
+      </Collapse>
                <Text style={{ fontSize: 23,
                 padding:3,
                 textAlign: 'center',
