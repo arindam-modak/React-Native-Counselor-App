@@ -75,7 +75,7 @@ class CollapsableList extends Component {
                <Text style={{ fontSize: 23,
                 padding:3,
                 textAlign: 'center',
-                color: '#009688',}}>
+                color: '#2a2f43'}}>
                 Expandable List
                 </Text>
 

@@ -10,7 +10,7 @@ var Style = StyleSheet.create({
     borderRadius: 4,
     margin:3,
     padding:10,
-    backgroundColor : '#f4f7f9',
+    backgroundColor : '#f47442',
     paddingTop : 30,
     borderWidth: 2,
     borderColor: 'rgba(0,0,0,.2)'
