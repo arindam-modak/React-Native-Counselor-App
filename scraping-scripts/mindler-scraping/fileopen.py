@@ -58,4 +58,17 @@ with (open("CareerLibrary", "rb")) as openfile:
 		except:
 			break
 
-print(objects[0].career[0].leading_colleges)
+file_field = open("Field_list.txt","w")
+
+for field in objects:
+    file_field.write(field.name)
+    file_field.write('\n')
+    file_career = open(field.name,"w")
+    for career in field.career:
+        file_career.write(career.name)
+        file_career.write("\n")
+    file_career.close()
+file_field.close()
+
+
+#print(objects[0].career[0].leading_colleges)
