@@ -77,7 +77,9 @@ def getleadinginstitute(url):
     headings = ['college','location','website']
     colleges.append(headings)
     temp = k.find('div',class_="table-mobile")
-    list = temp.find_all('td')
+    list = []
+    if temp:
+        list = temp.find_all('td')
     count = 0
     row = []
     for i in range(len(list)):
@@ -211,7 +213,7 @@ class Career:
         soup = BeautifulSoup(page, 'html.parser')
         div = soup.find(class_="career-details-section")
         name = div.find('h2')
-        self.name = name.text
+        self.name = name.text.lstrip().rstrip()
         print(self.name)
         self.summary = getsummary(url)
         #print('\n','summary','\n',self.summary)
@@ -244,13 +246,13 @@ class Field:
         soup = BeautifulSoup(page, 'html.parser')
         div = soup.find(id='career-bucket-page',class_="career-library-new career-details-page career-last-page")
         name = div.find('h4')
-        self.name = name.text
-        career = []
+        self.name = name.text.lstrip().rstrip()
+        self.career = []
         div = soup.find('div',id="library-data-bucket",class_="cl-row search-topics last-page")
         temp = div.find_all('a')
         urls = []
         for i in temp:
-            career.append(Career(i.get('href')))
+            self.career.append(Career(i.get('href')))
         #self.careers = career    
 
 urls=["https://www.mindler.com/careerlibrary/Actuarial-Sciences","https://www.mindler.com/careerlibrary/Allied-Medicine","https://www.mindler.com/careerlibrary/Animation-Graphics","https://www.mindler.com/careerlibrary/Applied-Arts","https://www.mindler.com/careerlibrary/Architecture","https://www.mindler.com/careerlibrary/Aviation","https://www.mindler.com/careerlibrary/Cabin-Crew","https://www.mindler.com/careerlibrary/Civil-Services","https://www.mindler.com/careerlibrary/Commerce-Accounts","https://www.mindler.com/careerlibrary/Computer-Application-IT","https://www.mindler.com/careerlibrary/Distribution-Logistics","https://www.mindler.com/careerlibrary/Defense","https://www.mindler.com/careerlibrary/Design","https://www.mindler.com/careerlibrary/Economics","https://www.mindler.com/careerlibrary/Education-Training","https://www.mindler.com/careerlibrary/Engineering","https://www.mindler.com/careerlibrary/Entrepreneurship","https://www.mindler.com/careerlibrary/Ethical-Hacking","https://www.mindler.com/careerlibrary/Finance-Banking","https://www.mindler.com/careerlibrary/Food-Agriculture","https://www.mindler.com/careerlibrary/Hotel-Management","https://www.mindler.com/careerlibrary/Law","https://www.mindler.com/careerlibrary/Life-Science-Environment","https://www.mindler.com/careerlibrary/Management","https://www.mindler.com/careerlibrary/Marketing-Advertising","https://www.mindler.com/careerlibrary/Maths-Statistics","https://www.mindler.com/careerlibrary/Media-Communication","https://www.mindler.com/careerlibrary/Medicine","https://www.mindler.com/careerlibrary/Merchant-Navy","https://www.mindler.com/careerlibrary/Nutrition-Fitness","https://www.mindler.com/careerlibrary/Performing-Arts","https://www.mindler.com/careerlibrary/Physical-Science","https://www.mindler.com/careerlibrary/Sales","https://www.mindler.com/careerlibrary/Social-Sciences-Humanities","https://www.mindler.com/careerlibrary/Social-Services"]
