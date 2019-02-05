@@ -82,16 +82,22 @@ with (open("CareerLibrary", "rb")) as openfile:
 			break
 
 
-filehandler = open("Field_list.txt",'r')
+'''filehandler = open("Field_list.txt",'r')
 inp = filehandler.readlines()
+filehandler.close()
 
   
 for i in inp:
-	data = {
-			'name' : i
-	}
-	#db.child("Fieldlist").push(data, user['idToken'])
-# db.collection(u'Counselling-BOT').document(u'Field').set(data)
+    filehandler2 = open(str(i).lstrip().rstrip(),'r')
+    inp2 = filehandler2.readlines()
+    filehandler2.close()
+    data = {'name' : str(i).lstrip().rstrip() , 'careers' : inp2}
+    db.collection(u'Fieldlist').document().set(data)'''
 
-db.collection(u'Fieldlist').push(data)
+
+for i in objects:
+    for j in i.career:
+        data = {'name' : str(j.name).lstrip().rstrip() , 'summary' : str(j.summary)}
+        db.collection(u'CareerSummary').document().set(data)
+
 

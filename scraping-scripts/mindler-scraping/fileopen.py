@@ -58,17 +58,27 @@ with (open("CareerLibrary", "rb")) as openfile:
 		except:
 			break
 
-file_field = open("Field_list.txt","w")
+'''file_field = open("Field_list.txt","w")
 
 for field in objects:
-    file_field.write(field.name)
-    file_field.write('\n')
-    file_career = open(field.name,"w")
-    for career in field.career:
-        file_career.write(career.name)
-        file_career.write("\n")
-    file_career.close()
-file_field.close()
+file_field.write(field.name)
+file_field.write('\n')
+file_career = open(field.name,"w")
+for career in field.career:
+    file_career.write(career.name)
+    file_career.write("\n")
+file_career.close()
+file_field.close()'''
 
 
-#print(objects[0].career[0].leading_colleges)
+print(objects[0].career[0].name)
+print(objects[0].career[0].summary)
+print(objects[0].career[0].professions)
+print(objects[0].career[0].career_path)
+print(objects[0].career[0].important_facts)
+print(objects[0].career[0].leading_colleges)
+print(objects[0].career[0].institutions_abroad)
+print(objects[0].career[0].entrance_exams)
+print(objects[0].career[0].work_description)
+print(objects[0].career[0].pros)
+print(objects[0].career[0].cons)
