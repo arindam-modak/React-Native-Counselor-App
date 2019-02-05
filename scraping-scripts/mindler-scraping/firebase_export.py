@@ -1,16 +1,29 @@
 #from firebase import firebase  
 import csv
 import pickle
-import pyrebase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+
+cred = credentials.Certificate("service.json")
+
+firebase_admin.initialize_app(cred, {
+    'projectId': "counselling-bot-10fda",
+})
+
+db = firestore.client()
 
 config = {
-  "apiKey": "AIzaSyA1QuFJ-oeqLp0Q0akmBPVy9YUY84cxsoc",
-  "authDomain": "counselling-bot-10fda.firebaseapp.com",
-  "databaseURL": "https://counselling-bot-10fda.firebaseio.com",
-  "storageBucket": "counselling-bot-10fda.appspot.com"
+    "apiKey": "AIzaSyA1QuFJ-oeqLp0Q0akmBPVy9YUY84cxsoc",
+    "authDomain": "counselling-bot-10fda.firebaseapp.com",
+    "databaseURL": "https://counselling-bot-10fda.firebaseio.com",
+   "projectId": "counselling-bot-10fda",
+    "storageBucket": "counselling-bot-10fda.appspot.com",
+    "messagingSenderId": "984760016813"
+
 }
 
-firebase = pyrebase.initialize_app(config)
 
 class Career:
     def __init__(self,url):
@@ -67,21 +80,18 @@ with (open("CareerLibrary", "rb")) as openfile:
 			objects.append(pickle.load(openfile))
 		except:
 			break
-# firebase = firebase.FirebaseApplication('https://counselling-bot-10fda.firebaseio.com/', None)
 
 
 filehandler = open("Field_list.txt",'r')
 inp = filehandler.readlines()
-db = firebase.database()
 
-
-# Pass the user's idToken to the push method
-#results = db.child("users").push(data, user['idToken'])
-
+  
 for i in inp:
 	data = {
 			'name' : i
 	}
-	db.child("Fieldlist").push(data)
+	#db.child("Fieldlist").push(data, user['idToken'])
+# db.collection(u'Counselling-BOT').document(u'Field').set(data)
 
+db.collection(u'Fieldlist').push(data)
 
