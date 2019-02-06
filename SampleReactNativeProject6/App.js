@@ -9,6 +9,7 @@ import CollapsableList from './components/CollapsableList';
 import ChatBot from './components/ChatBot';
 import CareerList from './components/CareerList';
 import FieldCareers from './components/FieldCareers';
+import CareerDetail from './components/CareerDetail';
 
 const RootStack = createStackNavigator(
   {
@@ -19,7 +20,8 @@ const RootStack = createStackNavigator(
     CollapseList: CollapsableList,
     ChatBot: ChatBot,
     CareerList: CareerList,
-    FieldCareers: FieldCareers
+    FieldCareers: FieldCareers,
+    CareerDetail: CareerDetail
   },
   {
     initialRouteName: 'Board',
