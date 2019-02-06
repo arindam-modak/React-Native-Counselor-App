@@ -7,6 +7,7 @@ import AddBoardScreen from './components/AddBoardScreen';
 import EditBoardScreen from './components/EditBoardScreen';
 import CollapsableList from './components/CollapsableList';
 import ChatBot from './components/ChatBot';
+import CareerList from './components/CareerList';
 
 
 const RootStack = createStackNavigator(
@@ -17,6 +18,7 @@ const RootStack = createStackNavigator(
     EditBoard: EditBoardScreen,
     CollapseList: CollapsableList,
     ChatBot: ChatBot,
+    CareerList: CareerList
   },
   {
     initialRouteName: 'Board',

@@ -59,6 +59,9 @@ class BoardScreen extends Component {
                 large
                 leftIcon={{name: 'list'}}
                 title='All Careers'
+                onPress={() => {
+                  this.props.navigation.navigate('CareerList');
+                }}
                  />
               </View>
               <View style={styles.container4}>
