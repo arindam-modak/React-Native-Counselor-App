@@ -3,50 +3,38 @@ import { StyleSheet, ScrollView, ActivityIndicator, View, Text } from 'react-nat
 import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from '../Firebase';
 
-class CareerList extends Component {
+class FieldCareers extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Career List',
+      title: 'Careers',
     };
   };
 
   constructor() {
     super();
-    this.ref = firebase.firestore().collection('Fieldlist');
-    this.unsubscribe = null;
     this.state = {
-      isLoading: true,
-      fields: []
+      isLoading: false,
+      Careers: [],
+      FieldName: ''
     };
   }
 
-  onCollectionUpdate = async (querySnapshot) => {
-    const fields = [];
-    await querySnapshot.forEach(async (doc) => {
-      const { name, careers } = doc.data();
-      fields.push({
-        key: doc.id,
-        doc, // DocumentSnapshot
-        name,
-        careers,
-      });
-    });
-    this.setState({
-      fields,
-      isLoading: false,
-   });
-  }
-
   componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    const { navigation } = this.props;
+    const ref = JSON.parse(navigation.getParam('FieldName'));
+      this.setState({
+        Careers: JSON.parse(navigation.getParam('Careers')),
+        FieldName: JSON.parse(navigation.getParam('FieldName')),
+        isLoading: false
+      });
   }
 
   render() {
     if(this.state.isLoading){
       return(
           <View style={styles.activity}>
-            <ActivityIndicator size="large" color="#0000ff"/>
+            <ActivityIndicator size="large" color="#0000ff" />
           </View>
       )
     }
@@ -54,17 +42,12 @@ class CareerList extends Component {
       <ScrollView style={styles.container}>
         <List>
           {
-            this.state.fields.map((item, i) => (
+            this.state.Careers.map((item, i) => (
               <ListItem
                 key={i}
-                title={item.name}
+                title={item}
                 leftIcon={{name: 'book', type: 'font-awesome'}}
-                onPress={() => {
-                  this.props.navigation.navigate('FieldCareers', {
-                    FieldName: `${JSON.stringify(item.name)}`,
-                    Careers: `${JSON.stringify(item.careers)}`
-                  });
-                }}
+                
               />
             ))
           }
@@ -74,7 +57,7 @@ class CareerList extends Component {
   }
 }
 
-export default CareerList;
+export default FieldCareers;
 
 const styles = StyleSheet.create({
   container: {
