@@ -97,7 +97,20 @@ for i in inp:
 
 for i in objects:
     for j in i.career:
-        data = {'name' : str(j.name).lstrip().rstrip() , 'summary' : str(j.summary)}
-        db.collection(u'CareerSummary').document().set(data)
+        data = {
+        'superCareer': i.name ,
+        'name' : str(j.name).lstrip().rstrip() ,
+        'summary' : str(j.summary), 
+        'professions' : [ { pro[0]: pro[1] }  for pro in j.professions ],
+        'career_path' : [ { 'stream': j.career_path[pro][0], 'graduation': j.career_path[pro][1], 'after-graduation': j.career_path[pro][2], 'after-post-graduation': j.career_path[pro][3] }  for pro in range(1,len(j.career_path)) ],
+        'important_facts' : [ fac for fac in j.important_facts],
+        'leading_colleges' : [ { 'college': j.leading_colleges[pro][0], 'location': j.leading_colleges[pro][1], 'website': j.leading_colleges[pro][2] }  for pro in range(1,len(j.leading_colleges)) ],
+        'institutions_abroad' : [ { 'college': j.institutions_abroad[pro][0], 'location': j.institutions_abroad[pro][1], 'website': j.institutions_abroad[pro][2] }  for pro in range(1,len(j.institutions_abroad)) ],
+        'entrance_exams' : [ { 'college': j.entrance_exams[pro][0], 'tentative-date': j.entrance_exams[pro][1], 'important-elements': j.entrance_exams[pro][2], 'website': j.entrance_exams[pro][3] }  for pro in range(1,len(j.entrance_exams)) ],
+        'work_description' : [ fac for fac in j.work_description],
+        'pros' : [ fac for fac in j.pros],
+        'cons' : [ fac for fac in j.cons]
+        }
+        db.collection(u'AllCareers').document().set(data)
 
 
