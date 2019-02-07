@@ -54,6 +54,10 @@ class CareerDetail extends Component {
               {this.state.board.name}{'\n'}
             </Text>
             <Text>
+              {'\n'}{'Type'}{'\n'}
+              {this.state.board.superCareer}
+            </Text>
+            <Text>
               {'\n'}{'Summary'}{'\n'}
               {this.state.board.summary}
             </Text>
