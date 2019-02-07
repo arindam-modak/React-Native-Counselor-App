@@ -20,11 +20,13 @@ class CareerDetail extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { navigation } = this.props;
-    const ref = firebase.firestore().collection('AllCareers').where("name", "==", JSON.parse(navigation.getParam('CareerName')));
-    ref.get().then((doc) => {
-      if (doc.exists) {
+    const ref = await firebase.firestore().collection('AllCareers').where('name','==',navigation.getParam('CareerName').toString().slice(1,-3));
+    console.log(navigation.getParam('CareerName').toString().slice(1,-3));
+    ref.get().then((snapshot) => {
+      if (!snapshot.empty) {
+        doc = snapshot.docs[0];
         this.setState({
           board: doc.data(),
           key: doc.id,
