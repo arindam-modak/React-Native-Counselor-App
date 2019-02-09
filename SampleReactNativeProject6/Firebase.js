@@ -4,12 +4,12 @@ import firestore from 'firebase/firestore'
 //const settings = {timestampsInSnapshots: true};
 
 const config = {
-    apiKey: "AIzaSyAMNCoXwFYy9dTapcnVSfJPxMLnXmaOdoU",
-	authDomain: "react-native1-4e754.firebaseapp.com",
-	databaseURL: "https://react-native1-4e754.firebaseio.com",
-	projectId: "react-native1-4e754",
-	storageBucket: "react-native1-4e754.appspot.com",
-	messagingSenderId: "475909135835"
+    apiKey: "AIzaSyA1QuFJ-oeqLp0Q0akmBPVy9YUY84cxsoc",
+    authDomain: "counselling-bot-10fda.firebaseapp.com",
+    databaseURL: "https://counselling-bot-10fda.firebaseio.com",
+    projectId: "counselling-bot-10fda",
+    storageBucket: "counselling-bot-10fda.appspot.com",
+    messagingSenderId: "984760016813"
 };
 firebase.initializeApp(config);
 
