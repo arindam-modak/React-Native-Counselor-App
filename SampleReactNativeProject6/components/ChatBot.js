@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, ActivityIndicator, View, Text, Image, TextInput
 import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from '../Firebase';
 import Voice from 'react-native-voice';
+import Dialogflow from "react-native-dialogflow";
 
 class ChatBot extends Component {
 
@@ -20,11 +21,13 @@ class ChatBot extends Component {
       error: '',
       end: '',
       started: '',
-      results: [],
+      results: '',
       partialResults: [],
       isVoiceOn: false
     };
-
+    Dialogflow.setConfiguration(
+            "77c9f4ea1f5b45999a9194bba81e99fe", Dialogflow.LANG_ENGLISH 
+    );
     Voice.onSpeechStart = this.onSpeechStart;
     Voice.onSpeechRecognized = this.onSpeechRecognized;
     Voice.onSpeechEnd = this.onSpeechEnd;
@@ -70,13 +73,24 @@ class ChatBot extends Component {
     });
   };
 
+  updateResult = (e,qu) => {
+    this.setState({
+        results: qu[0],
+        query: e.value[0]
+    });
+  }
+
   onSpeechResults = e => {
     // eslint-disable-next-line
     console.log('onSpeechResults: ', e);
-    this.setState({
-      results: e.value,
-      query: e.value[0]
-    });
+    const qu = [];
+    const that = this;
+    Dialogflow.requestQuery(e.value[0], result=>{ qu.push(result); }, error=>console.log(error));
+    setTimeout(function afterTwoSeconds() {
+      console.log(qu);
+      that.updateResult(e,qu);
+    }, 2000)
+    
   };
 
   onSpeechPartialResults = e => {
@@ -107,7 +121,7 @@ class ChatBot extends Component {
         pitch: '',
         error: '',
         started: '',
-        results: [],
+        results: '',
         partialResults: [],
         end: '',
         isLoading: false,
@@ -147,17 +161,21 @@ class ChatBot extends Component {
           </View>
       )
     }
+
+    var Reply;
+    if(this.state.results=='')
+      Reply = 'Hi';
+    else
+      Reply = this.state.results.result.fulfillment.messages.length > 1 ? this.state.results.result.fulfillment.messages[1].speech:
+                                                                              this.state.results.result.fulfillment.messages[0].speech;
     return (
+
         <View style={styles.container}>
           <View style={styles.container1}>
             <Text style={styles.stat}>Results</Text>
-            {this.state.results.map((result, index) => {
-              return (
-                <Text key={`result-${index}`} style={styles.stat}>
-                  {result}
+                <Text key={`result`} style={styles.stat}>
+                  {Reply}
                 </Text>
-              );
-            })}
           </View>
           <View style={styles.container2}>
             <View style={styles.container3}>

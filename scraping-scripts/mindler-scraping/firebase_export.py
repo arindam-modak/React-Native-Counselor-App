@@ -95,7 +95,7 @@ for i in inp:
     db.collection(u'Fieldlist').document().set(data)'''
 
 
-for i in objects:
+'''for i in objects:
     for j in i.career:
         data = {
         'superCareer': i.name ,
@@ -111,6 +111,4 @@ for i in objects:
         'pros' : [ fac for fac in j.pros],
         'cons' : [ fac for fac in j.cons]
         }
-        db.collection(u'AllCareers').document().set(data)
-
-
+        db.collection(u'AllCareers').document().set(data)'''
