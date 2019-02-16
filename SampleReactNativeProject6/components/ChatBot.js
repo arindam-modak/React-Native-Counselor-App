@@ -21,7 +21,7 @@ class ChatBot extends Component {
       error: '',
       end: '',
       started: '',
-      results: '',
+      results: [],
       partialResults: [],
       isVoiceOn: false
     };
@@ -75,7 +75,7 @@ class ChatBot extends Component {
 
   updateResult = (e,qu) => {
     this.setState({
-        results: qu[0],
+        results: qu[0].result.fulfillment.messages,
         query: e.value[0]
     });
   }
@@ -121,7 +121,7 @@ class ChatBot extends Component {
         pitch: '',
         error: '',
         started: '',
-        results: '',
+        results: [],
         partialResults: [],
         end: '',
         isLoading: false,
@@ -161,21 +161,17 @@ class ChatBot extends Component {
           </View>
       )
     }
-
-    var Reply;
-    if(this.state.results=='')
-      Reply = 'Hi';
-    else
-      Reply = this.state.results.result.fulfillment.messages.length > 1 ? this.state.results.result.fulfillment.messages[1].speech:
-                                                                              this.state.results.result.fulfillment.messages[0].speech;
     return (
-
         <View style={styles.container}>
           <View style={styles.container1}>
             <Text style={styles.stat}>Results</Text>
-                <Text key={`result`} style={styles.stat}>
-                  {Reply}
+            {this.state.results.map((result, index) => {
+              return (
+                <Text key={`result-${index}`} style={styles.stat}>
+                  {result.speech}
                 </Text>
+              );
+            })}
           </View>
           <View style={styles.container2}>
             <View style={styles.container3}>
