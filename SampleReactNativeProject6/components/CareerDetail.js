@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, ActivityIndicator, View, Text } from 'react-native';
 import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from '../Firebase';
-
+import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
+import { Thumbnail, Separator } from 'native-base';
+import Panel from './components/Panel';
+import Style from './Style';
+import {
+  Image,
+  BackHandler } from 'react-native';
 class CareerDetail extends Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -48,20 +54,45 @@ class CareerDetail extends Component {
     }
     return (
       <ScrollView style={styles.container}>
-        <View>
-            <Text>
-              {'Name'}{'\n'}
-              {this.state.board.name}{'\n'}
-            </Text>
-            <Text>
-              {'\n'}{'Type'}{'\n'}
-              {this.state.board.superCareer}
-            </Text>
-            <Text>
-              {'\n'}{'Summary'}{'\n'}
-              {this.state.board.summary}
-            </Text>
-        </View>
+         <Collapse>
+                      <CollapseHeader>
+                        <Separator bordered>
+                          <Text>Summary</Text>
+                        </Separator>
+                      </CollapseHeader>
+                      <CollapseBody>
+                        <Text>{this.state.board.summary}</Text>
+                      </CollapseBody>
+                    </Collapse>
+
+        <Collapse>
+          <CollapseHeader>
+              <Separator bordered>
+              <Text>Career Opportunities</Text>
+              </Separator>
+          </CollapseHeader>
+          <CollapseBody>
+          {
+
+          this.state.board.professions.map((item, i) => (
+              Object.keys(item).map( (key, index) => (
+
+              <Panel title={key}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={{flex: 1, flexDirection: 'column'}} >
+              
+               <Text style={Style.list_item}>{item[key]}</Text>
+              
+               </View>
+              </View>
+              </Panel>
+            ))
+            ))
+          }
+          </CollapseBody>
+      </Collapse>
+
+     
       </ScrollView>
     );
   }
