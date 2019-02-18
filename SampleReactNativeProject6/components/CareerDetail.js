@@ -17,7 +17,7 @@ import SliderEntry from './src/components/SliderEntry';
 import styles, { colors } from './src/styles/index.style';
 import { ENTRIES1, ENTRIES2 } from './src/static/entries';
 import { scrollInterpolators, animatedStyles } from './src/utils/animations';
-
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-material-cards'
 
 
 const IS_ANDROID = Platform.OS === 'android';
@@ -145,6 +145,7 @@ layoutExample (number, title, type) {
           </View>
       )
     }
+    const numbers=[]; 
     const example4 = this.layoutExample(4, '"Tinder-like" layout | Loop', 'tinder');
     const example3 = this.layoutExample(3, '"Stack of cards" layout | Loop', 'stack');
     const example1 = this.mainExample(1, 'Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots');
@@ -196,25 +197,24 @@ layoutExample (number, title, type) {
           <CollapseBody>
           {
               this.state.board.career_path.map((item, i) => (
-              <Panel title={i} height={1}>
+              <Panel title={"Path " + (i+1)} height={1}>
               <View style={{flex: 1, flexDirection: 'row'}}>
               <View style={{flex: 1, flexDirection: 'column'}} >
             {
+
               Object.keys(item).map( (key, index) => (
               
-               <Text>{key}</Text>
+
+               <Card>
+                <CardTitle 
+                  title={key} 
+                 />
+                <CardContent text={item[key]} />  
+              </Card>
                    
                ))
              }
-                <ScrollView
-                      style={styles.scrollview}
-                      scrollEventThrottle={200}
-                      directionalLockEnabled={false}
-                        >
-                        { example4 }
-                        
-                        
-                    </ScrollView>
+               
                
               
               
@@ -258,7 +258,7 @@ export default CareerDetail;
 const styless = StyleSheet.create({
   container: {
    flex: 1,
-   paddingBottom: 22
+   paddingBottom: 100,
   },
   item: {
     fontWeight: "bold",
