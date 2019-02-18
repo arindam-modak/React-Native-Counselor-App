@@ -3,12 +3,17 @@ import { StyleSheet, ScrollView, ActivityIndicator, View, Text, Image } from 're
 import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from '../Firebase';
 import SplashScreen from 'react-native-splash-screen';
-
+import AwesomeButton from "react-native-really-awesome-button";
 class BoardScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Counseling App',
+      
+      headerStyle: {
+      backgroundColor: '#FDBC5E',
+
+      },
       headerRight: (
         <Button
           buttonStyle={{ padding: 0, backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
@@ -48,14 +53,15 @@ class BoardScreen extends Component {
     return (
         <View style={styles.container}>
           <View style={styles.container1}>
-            <Image
-              source={require('./assets/img/dash.png')}
+            <Image style={{width: 500, height: 500}}
+              source={require('./src/icon.png')}
             />
           </View>
           <View style={styles.container2}>
             <View style={styles.container3}>
               <View style={styles.container4}>
-                <Button
+                <Button buttonStyle={styles.button}
+                type="outline"
                 large
                 leftIcon={{name: 'list'}}
                 title='All Careers'
@@ -65,8 +71,9 @@ class BoardScreen extends Component {
                  />
               </View>
               <View style={styles.container4}>
-                <Button
+                <Button buttonStyle={styles.button}
                 large
+                
                 leftIcon={{name: 'face'}}
                 title='Chat Bot'
                 onPress={() => {
@@ -91,20 +98,20 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   container1: {
-   flex: 0.3,
+   flex: 1,
    padding: 20,
-   borderBottomWidth: 2,
-   borderBottomColor: '#CCCCCC',
    alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor : '#ffffff'
+
   },
   container2: {
-   flex: 0.7,
+   flex: 0.4,
    flexDirection: 'column',
     borderBottomColor: '#CCCCCC',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor : '#f47442'
+    backgroundColor : '#ffffff'
   },
   container3: {
    flex: 0.3,
@@ -121,6 +128,10 @@ const styles = StyleSheet.create({
    flex: 0.7,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button:{
+       borderRadius:10,
+       width:180,
   },
   activity: {
     position: 'absolute',
