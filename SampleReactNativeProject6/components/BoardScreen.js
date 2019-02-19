@@ -10,10 +10,9 @@ class BoardScreen extends Component {
     return {
       title: 'Counseling App',
       headerTitleStyle: {
-      fontWeight: 'bold',
-      textAlign: 'center',
       fontSize: 25,
-      fontFamily: 'Roboto',
+      fontWeight: "bold",
+      fontFamily: 'American Typewriter',
       },
       headerStyle: {
       backgroundColor: '#FDBC5E',

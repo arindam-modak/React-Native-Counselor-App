@@ -12,7 +12,7 @@ var Style = StyleSheet.create({
     padding:10,
     backgroundColor : '#f47442',
     paddingTop : 30,
-    borderWidth: 2,
+    borderWidth: 0,
     borderColor: 'rgba(0,0,0,.2)'
   },
   list_item: {
@@ -22,8 +22,6 @@ var Style = StyleSheet.create({
     fontSize: 17,
     margin:10,
     flex    : 1,
-    fontWeight :'bold',
-    color:'#2196F3',
   },
   list_sub_header: {
     fontSize: 17,

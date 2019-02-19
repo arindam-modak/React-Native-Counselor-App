@@ -62,7 +62,7 @@ class Panel extends Component{
             <Animated.View
                 style={[styles.container,{height: this.state.animation}]}>
                 <View style={styles.titleContainer} onLayout={this._setMinHeight.bind(this)}>
-                    <Text style={Style.list_header}>{this.state.title}</Text>
+                    <Text style={Style.list_header} onPress={this.toggle.bind(this)}>{this.state.title}</Text>
                     <TouchableHighlight
                         style={styles.button}
                         onPress={this.toggle.bind(this)}
@@ -86,11 +86,10 @@ class Panel extends Component{
 var styles = StyleSheet.create({
     container   : {
         backgroundColor: '#fff',
-        margin:10,
-        borderWidth: 2,
-        borderRadius: 4,
-        margin:5,
-        borderColor: 'rgba(0,0,0,.2)',
+        
+        borderWidth:4,
+        //margin:5,
+        borderColor: '#FDBC5E',
         overflow:'hidden'
     },
     titleContainer : {
@@ -107,10 +106,10 @@ var styles = StyleSheet.create({
     },
     buttonImage : {
         width   : 30,
-        height  : 25
+        height  : 30
     },
     body        : {
-        padding     : 10,
+        padding     : 0,
         paddingTop  : 0
     }
 });

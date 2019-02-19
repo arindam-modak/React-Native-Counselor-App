@@ -160,28 +160,28 @@ layoutExample (number, title, type) {
                           <Text style={styless.item}>Summary</Text>
                         </Separator>
                       </CollapseHeader>
-                      <CollapseBody>
-                        <Text>{this.state.board.summary}</Text>
+                      <CollapseBody style={{borderWidth:5,borderColor:"#FDBC5E"}}>
+                        <Text style={{padding:15}}>{this.state.board.summary}</Text>
                       </CollapseBody>
                     </Collapse>
 
         <Collapse collapsedHeight="2">
-          <CollapseHeader>
+          <CollapseHeader containerStyle={{backgroundColor:"#ffedd2"}}>
               <Separator bordered style={styless.sep}>
               <Text style={styless.item}>Career Opportunities</Text>
               </Separator>
           </CollapseHeader>
-          <CollapseBody>
+          <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}} >
           {
 
           this.state.board.professions.map((item, i) => (
               Object.keys(item).map( (key, index) => (
 
-              <Panel title={key} height={1}>
-              <View style={{flex: 1, flexDirection: 'row'}}>
-              <View style={{flex: 1, flexDirection: 'column'}} >
+              <Panel title={key} height={1} key={index}>
+              <View style={{flex: 1, flexDirection: 'row', borderWidth: 3, borderColor:"#FDBC5E"}}>
+              <View style={{flex: 1, flexDirection: 'column', borderWidth: 3, borderColor:"#FDBC5E"}} >
               
-               <Text style={styles.list}>{item[key]}</Text>
+               <Text style={{padding:20}}>{item[key]}</Text>
               
                </View>
               </View>
@@ -197,16 +197,17 @@ layoutExample (number, title, type) {
               <Text style={styless.item}>Path</Text>
               </Separator>
           </CollapseHeader>
-          <CollapseBody>
+          <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
           {
               this.state.board.career_path.map((item, i) => (
-              <Panel title={"Path " + (i+1)} height={1}>
+              <Panel title={"Path " + (i+1)} height={1} titleStyle={styless.list} key={i}>
               <View style={{flex: 1, flexDirection: 'row'}}>
               <View style={{flex: 1, flexDirection: 'column'}} >
              {
-                   <Card>
+                   <Card >
                     <CardTitle 
-                      title="Stream" 
+                     title="Stream"
+                     style={{marginTop:-20,fontSize:20}}
                      />
                     <CardContent text={item['stream']} />  
                   </Card>
@@ -215,14 +216,16 @@ layoutExample (number, title, type) {
                   <Card>
                     <CardTitle 
                       title="Graduation" 
+                      style={{marginTop:-20}}
                      />
-                    <CardContent text={item['graduation']} />  
+                    <CardContent text={item['graduation']} textStyle={{fontSize:20}} />  
                   </Card>
               }
               {
                   <Card>
                     <CardTitle 
                       title="Post Graduation" 
+                      style={{marginTop:-20}}
                      />
                     <CardContent text={item['after-graduation']} />  
                   </Card>
@@ -231,6 +234,7 @@ layoutExample (number, title, type) {
                   <Card>
                     <CardTitle 
                       title="After Post Graduation" 
+                      style={{marginTop:-20}}
                      />
                     <CardContent text={item['after-post-graduation']} />  
                   </Card>
@@ -277,18 +281,26 @@ const styless = StyleSheet.create({
    paddingBottom: 100,
   },
   item: {
-    fontWeight: "bold",
-    padding: 10,
+    paddingTop: 10,
     fontSize: 20,
     height: 44,
     // textAlign: 'center',
 
   },
   list:{
+    padding: 15,
     fontWeight: "bold",
+    color: "#000000",
+    fontSize: 20,
   },
   sep:{
-    height:60,
+
+    height:50,
+    backgroundColor:"#ffedd2",
+    borderWidth: 5,
+    borderRadius:5,
+    borderBottomWidth:5,
+    borderColor: '#FDBC5E'
   },
   activity: {
     position: 'absolute',
