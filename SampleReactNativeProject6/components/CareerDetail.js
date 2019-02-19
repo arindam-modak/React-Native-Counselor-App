@@ -298,7 +298,7 @@ const styless = StyleSheet.create({
     height:50,
     backgroundColor:"#ffedd2",
     borderWidth: 5,
-    borderRadius:5,
+    borderRadius:0,
     borderBottomWidth:5,
     borderColor: '#FDBC5E'
   },
