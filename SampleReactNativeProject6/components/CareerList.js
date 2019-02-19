@@ -8,6 +8,9 @@ class CareerList extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Career List',
+      headerStyle: {
+      backgroundColor: '#FDBC5E',
+      },
     };
   };
 
@@ -50,12 +53,14 @@ class CareerList extends Component {
           </View>
       )
     }
+    let colors = ['#ffffff', '#ffedd2'];
     return (
       <ScrollView style={styles.container}>
-        <List>
+        <List containerStyle={{ borderTopWidth: 0}}>
           {
+
             this.state.fields.map((item, i) => (
-              <ListItem
+              <ListItem containerStyle={{borderBottomWidth: 0 ,backgroundColor: colors[i % colors.length] }}
                 key={i}
                 title={item.name}
                 leftIcon={{name: 'book', type: 'font-awesome'}}

@@ -9,6 +9,9 @@ class ChatBot extends Component {
 
   static navigationOptions = {
     title: 'Chat Bot',
+    headerStyle: {
+      backgroundColor: '#FDBC5E',
+      },
   };
 
   constructor(props) {

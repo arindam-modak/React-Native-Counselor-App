@@ -9,25 +9,10 @@ class BoardScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Counseling App',
-      
+
       headerStyle: {
       backgroundColor: '#FDBC5E',
-
       },
-      headerRight: (
-        <Button
-          buttonStyle={{ padding: 0, backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
-          icon={{ name: 'add-circle', style: { marginRight: 0, fontSize: 28 } }}
-          onPress={() => { navigation.push('AddBoard') }}
-        />
-      ),
-      headerLeft: (
-        <Button
-          buttonStyle={{ padding: 0, backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
-          icon={{ name: 'code', style: { marginRight: 0, fontSize: 28 } }}
-          onPress={() => { navigation.push('CollapseList') }}
-        />
-      ),
     };
   };
 

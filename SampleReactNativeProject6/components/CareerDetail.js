@@ -29,6 +29,9 @@ class CareerDetail extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Career Detail',
+      headerStyle: {
+      backgroundColor: '#FDBC5E',
+      },
     };
   };
 
@@ -178,7 +181,7 @@ layoutExample (number, title, type) {
               <View style={{flex: 1, flexDirection: 'row'}}>
               <View style={{flex: 1, flexDirection: 'column'}} >
               
-               <Text style={Style.list_item}>{item[key]}</Text>
+               <Text style={styles.list}>{item[key]}</Text>
               
                </View>
               </View>
@@ -200,25 +203,38 @@ layoutExample (number, title, type) {
               <Panel title={"Path " + (i+1)} height={1}>
               <View style={{flex: 1, flexDirection: 'row'}}>
               <View style={{flex: 1, flexDirection: 'column'}} >
-            {
-
-              Object.keys(item).map( (key, index) => (
-              
-
-               <Card>
-                <CardTitle 
-                  title={key} 
-                 />
-                <CardContent text={item[key]} />  
-              </Card>
-                   
-               ))
-             }
-               
-               
-              
-              
-         
+             {
+                   <Card>
+                    <CardTitle 
+                      title="Stream" 
+                     />
+                    <CardContent text={item['stream']} />  
+                  </Card>
+              }
+              {
+                  <Card>
+                    <CardTitle 
+                      title="Graduation" 
+                     />
+                    <CardContent text={item['graduation']} />  
+                  </Card>
+              }
+              {
+                  <Card>
+                    <CardTitle 
+                      title="Post Graduation" 
+                     />
+                    <CardContent text={item['after-graduation']} />  
+                  </Card>
+              }
+              {
+                  <Card>
+                    <CardTitle 
+                      title="After Post Graduation" 
+                     />
+                    <CardContent text={item['after-post-graduation']} />  
+                  </Card>
+              }
            </View>
           </View>
           </Panel>    
@@ -267,6 +283,9 @@ const styless = StyleSheet.create({
     height: 44,
     // textAlign: 'center',
 
+  },
+  list:{
+    fontWeight: "bold",
   },
   sep:{
     height:60,

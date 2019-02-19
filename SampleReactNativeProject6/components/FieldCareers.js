@@ -8,6 +8,9 @@ class FieldCareers extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Careers',
+      headerStyle: {
+      backgroundColor: '#FDBC5E',
+      },
     };
   };
 
