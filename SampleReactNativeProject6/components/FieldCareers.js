@@ -51,7 +51,7 @@ class FieldCareers extends Component {
                 key={i}
                 title={item}
                 //leftIcon={{name: 'book', type: 'font-awesome'}}
-                leftAvatar={{title="A"}}
+                leftAvatar={{rounded:true, title:"A"}}
                 onPress={() => {
                   this.props.navigation.navigate('CareerDetail', {
                     CareerName: `${JSON.stringify(item)}`

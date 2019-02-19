@@ -8,6 +8,10 @@ class CareerList extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Career List',
+      headerTitleStyle: {
+      fontWeight: 'bold',
+      fontFamily: 'Cochin',
+      },
       headerStyle: {
       backgroundColor: '#FDBC5E',
       },
@@ -63,7 +67,7 @@ class CareerList extends Component {
               <ListItem containerStyle={{borderBottomWidth: 0 ,backgroundColor: colors[i % colors.length] }}
                 key={i}
                 title={item.name}
-                leftIcon={{name: 'book', type: 'font-awesome'}}
+                //leftIcon={{name: 'book', type: 'font-awesome'}}
                 onPress={() => {
                   this.props.navigation.navigate('FieldCareers', {
                     FieldName: `${JSON.stringify(item.name)}`,

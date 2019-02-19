@@ -9,7 +9,12 @@ class BoardScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Counseling App',
-
+      headerTitleStyle: {
+      fontWeight: 'bold',
+      textAlign: 'center',
+      fontSize: 25,
+      fontFamily: 'Roboto',
+      },
       headerStyle: {
       backgroundColor: '#FDBC5E',
       },
