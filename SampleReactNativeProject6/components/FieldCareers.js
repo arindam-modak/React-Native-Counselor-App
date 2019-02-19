@@ -41,15 +41,17 @@ class FieldCareers extends Component {
           </View>
       )
     }
+    let colors = ['#ffffff', '#ffedd2'];
     return (
       <ScrollView style={styles.container}>
-        <List>
+        <List containerStyle={{ borderTopWidth: 0}}>
           {
             this.state.Careers.map((item, i) => (
-              <ListItem
+              <ListItem containerStyle={{borderBottomWidth: 0 ,backgroundColor: colors[i % colors.length] }}
                 key={i}
                 title={item}
-                leftIcon={{name: 'book', type: 'font-awesome'}}
+                //leftIcon={{name: 'book', type: 'font-awesome'}}
+                leftAvatar={{title="A"}}
                 onPress={() => {
                   this.props.navigation.navigate('CareerDetail', {
                     CareerName: `${JSON.stringify(item)}`
