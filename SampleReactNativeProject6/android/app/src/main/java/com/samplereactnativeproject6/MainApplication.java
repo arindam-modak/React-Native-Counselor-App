@@ -3,6 +3,8 @@ package com.samplereactnativeproject6;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.BV.LinearGradient.LinearGradientPackage;
+import de.innfactory.apiai.RNApiAiPackage;
 import com.wenkesj.voice.VoicePackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new LinearGradientPackage(),
+            new RNApiAiPackage(),
             new VoicePackage(),
             new SplashScreenReactPackage(),
             new VectorIconsPackage(),

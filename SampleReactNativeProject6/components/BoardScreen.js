@@ -12,7 +12,7 @@ class BoardScreen extends Component {
       headerTitleStyle: {
       fontSize: 25,
       fontWeight: "bold",
-      fontFamily: 'American Typewriter',
+      fontFamily: 'RobotoCondensed-LightItalic',
       },
       headerStyle: {
       backgroundColor: '#FDBC5E',
@@ -40,41 +40,48 @@ class BoardScreen extends Component {
       )
     }
     return (
-        <View style={styles.container}>
-          <View style={styles.container1}>
+      <View style={styles.container}>
+         <View style={styles.container1}>
             <Image style={{width: 500, height: 500}}
-              source={require('./src/icon.png')}
+            source={require('./src/icon.png')}
             />
-          </View>
-          <View style={styles.container2}>
-            <View style={styles.container3}>
-              <View style={styles.container4}>
+            </View>
+            <View style={styles.container2}>
+                <View style={styles.container3}>
+                    <View style={styles.container4}>
+                        <Button buttonStyle={styles.button}
+                        type="outline"
+                        large
+                        leftIcon={{name: 'list'}}
+                        title='All Careers'
+                        onPress={() => {
+                        this.props.navigation.navigate('CareerList');
+                        }}
+                        />
+                    </View>
+                    <View style={styles.container4}>
+                        <Button buttonStyle={styles.button}
+                        large
+                        type="outline"
+                        leftIcon={{name: 'face'}}
+                        title='Chat Bot'
+                        onPress={() => {
+                        this.props.navigation.navigate('ChatBot');
+                        }} />
+                    </View>
+                </View>
+            <View style={{padding:20,flex:0.3}}>
                 <Button buttonStyle={styles.button}
                 type="outline"
                 large
                 leftIcon={{name: 'list'}}
-                title='All Careers'
+                title='Psychometric Test'
                 onPress={() => {
-                  this.props.navigation.navigate('CareerList');
                 }}
-                 />
-              </View>
-              <View style={styles.container4}>
-                <Button buttonStyle={styles.button}
-                large
-                
-                leftIcon={{name: 'face'}}
-                title='Chat Bot'
-                onPress={() => {
-                  this.props.navigation.navigate('ChatBot');
-                }} />
-              </View>
+                />
             </View>
-            <View style={styles.container5}>
-                
-            </View>
-          </View>
-        </View>
+         </View>
+      </View>
     );
   }
 }
@@ -87,7 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   container1: {
-   flex: 1,
+   flex: 1.1,
    padding: 20,
    alignItems: 'center',
     justifyContent: 'center',
@@ -95,7 +102,7 @@ const styles = StyleSheet.create({
 
   },
   container2: {
-   flex: 0.4,
+   flex: 0.6,
    flexDirection: 'column',
     borderBottomColor: '#CCCCCC',
     alignItems: 'center',
@@ -110,6 +117,7 @@ const styles = StyleSheet.create({
   },
   container4: {
    flex: 0.5,
+   padding:5,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -119,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button:{
-       borderRadius:5,
+       borderRadius:3,
        flex: 1  
   },
   activity: {

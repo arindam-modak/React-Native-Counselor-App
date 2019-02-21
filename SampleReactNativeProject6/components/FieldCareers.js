@@ -7,7 +7,7 @@ class FieldCareers extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Careers',
+      title: navigation.getParam('FieldName').toString().slice(1,-1),
       headerStyle: {
       backgroundColor: '#FDBC5E',
       },

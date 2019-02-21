@@ -28,7 +28,7 @@ class CareerDetail extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Career Detail',
+      title: navigation.getParam('CareerName').toString().slice(1,-3),
       headerStyle: {
       backgroundColor: '#FDBC5E',
       },
@@ -204,7 +204,7 @@ layoutExample (number, title, type) {
               <View style={{flex: 1, flexDirection: 'row'}}>
               <View style={{flex: 1, flexDirection: 'column', paddingBottom:10}} >
              {
-                   <Card >
+                   <Card style={{borderRadius:15}}>
                     <CardTitle 
                      title="Stream"
                      style={{marginTop:-20,fontSize:20}}
@@ -213,7 +213,7 @@ layoutExample (number, title, type) {
                   </Card>
               }
               {
-                  <Card>
+                  <Card style={{borderRadius:15}}>
                     <CardTitle 
                       title="Graduation" 
                       style={{marginTop:-20}}
@@ -222,7 +222,7 @@ layoutExample (number, title, type) {
                   </Card>
               }
               {
-                  <Card>
+                  <Card style={{borderRadius:15}}>
                     <CardTitle 
                       title="Post Graduation" 
                       style={{marginTop:-20}}
@@ -231,7 +231,7 @@ layoutExample (number, title, type) {
                   </Card>
               }
               {
-                  <Card>
+                  <Card style={{borderRadius:15}}>
                     <CardTitle 
                       title="After Post Graduation" 
                       style={{marginTop:-20}}
@@ -254,7 +254,7 @@ layoutExample (number, title, type) {
               </Separator>
           </CollapseHeader>
           <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
-          <Card>
+          <Card style={{borderRadius:15}}>
             {
              this.state.board.important_facts.map((u, i) => {
                 return (
@@ -365,7 +365,7 @@ layoutExample (number, title, type) {
               </Separator>
           </CollapseHeader>
           <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
-          <Card>
+          <Card style={{borderRadius:15}}>
             {
              this.state.board.work_description.map((u, i) => {
                 return (
@@ -465,7 +465,7 @@ layoutExample (number, title, type) {
               {
              this.state.board.entrance_exams.map((item, i) => {
               return (
-                   <Card title={item['college']} containerStyle={{paddingBottom:10}}>
+                   <Card title={item['college']} containerStyle={{paddingBottom:10}} key={i}>
                     <View>
                       <Text>
                       <Text>{"    "}</Text>  
@@ -570,7 +570,7 @@ const styless = StyleSheet.create({
     height:50,
     backgroundColor:"#ffedd2",
     borderWidth: 5,
-    borderRadius:0,
+    borderRadius:15,
     borderBottomWidth:5,
     borderColor: '#FDBC5E'
   },
