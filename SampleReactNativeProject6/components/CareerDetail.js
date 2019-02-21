@@ -154,7 +154,7 @@ layoutExample (number, title, type) {
     const example1 = this.mainExample(1, 'Default layout | Loop | Autoplay | Parallax | Scale | Opacity | Pagination with tappable dots');
     return (
       <ScrollView style={styless.container}>
-         <Collapse duration={300}>
+         <Collapse duration={300} style={{paddingTop:10}}>
                       <CollapseHeader>
                         <Separator bordered style={styless.sep}>
                           <Text style={styless.item}>Summary</Text>
@@ -202,7 +202,7 @@ layoutExample (number, title, type) {
               this.state.board.career_path.map((item, i) => (
               <Panel title={"Path " + (i+1)} height={1} titleStyle={styless.list} key={i}>
               <View style={{flex: 1, flexDirection: 'row'}}>
-              <View style={{flex: 1, flexDirection: 'column'}} >
+              <View style={{flex: 1, flexDirection: 'column', paddingBottom:10}} >
              {
                    <Card >
                     <CardTitle 
@@ -287,7 +287,7 @@ layoutExample (number, title, type) {
               this.state.board.leading_colleges.map((item, i) => (
               <Panel title={item['college']} height={1} titleStyle={styless.list} key={i}>
               <View style={{flex: 1, flexDirection: 'row'}}>
-              <View style={{flex: 1, flexDirection: 'column'}} >
+              <View style={{flex: 1, flexDirection: 'column', paddingBottom:10}} >
              
                    <Card style={{paddingBottom:10,marginTop:-5}}>
                    <View style={ styless.column } key={i}>
@@ -302,7 +302,7 @@ layoutExample (number, title, type) {
                           
                           <Text style={{color: 'blue',fontSize:12,fontStyle:'italic',flex:0.2}}
                                   onPress={() => Linking.openURL("http://"+item['website'])}>
-                                                       Go to college website
+                                                       ---link
                         </Text>
                         </Text>
                       </View>
@@ -344,7 +344,7 @@ layoutExample (number, title, type) {
                           
                           <Text style={{color: 'blue',fontSize:12,fontStyle:'italic',flex:0.2}}
                                   onPress={() => Linking.openURL("http://"+item['website'])}>
-                                                       Go to college website
+                                                      ---link
                         </Text>
                         </Text>
                       </View>
@@ -396,7 +396,7 @@ layoutExample (number, title, type) {
           <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
               <Panel title="Pros" height={1} titleStyle={styless.list}>
               <View style={{flex: 1, flexDirection: 'row'}}>
-              <View style={{flex: 1, flexDirection: 'column'}} >
+              <View style={{flex: 1, flexDirection: 'column', paddingBottom:10}} >
              
               <Card>
                 {
@@ -423,7 +423,7 @@ layoutExample (number, title, type) {
           </Panel>    
           <Panel title="Cons" height={1} titleStyle={styless.list}>
               <View style={{flex: 1, flexDirection: 'row'}}>
-              <View style={{flex: 1, flexDirection: 'column'}} >
+              <View style={{flex: 1, flexDirection: 'column', paddingBottom:10}} >
              
               <Card>
                 {
@@ -448,6 +448,70 @@ layoutExample (number, title, type) {
            </View>
           </View>
           </Panel>   
+          </CollapseBody>
+      </Collapse>
+      <Collapse collapsedHeight="2">
+          <CollapseHeader>
+              <Separator bordered style={styless.sep}>
+              <Text style={styless.item}>Entrance Exams</Text>
+              </Separator>
+          </CollapseHeader>
+          <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
+          {
+              
+              <Panel title="Undergraduation" height={1} titleStyle={{fontStyle:'italic'}} >
+              <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={{flex: 1, flexDirection: 'column', paddingBottom:10}} >
+              {
+             this.state.board.entrance_exams.map((item, i) => {
+              return (
+                   <Card title={item['college']} containerStyle={{paddingBottom:10}}>
+                    <View>
+                      <Text>
+                      <Text>{"    "}</Text>  
+                      <Text style={{fontSize:15,fontWeight:"bold",textDecorationLine:'underline'}}>{item['college']}</Text>
+                      </Text>
+                      </View>
+                    <View style={ styless.column }>
+                      <View style={ styless.row }>
+                          <View style={ styless.bullet }>
+                              <Text>{'\u2022' + " "}</Text>
+                          </View>
+                          <View style={ styless.bulletText }>
+                              <Text>
+                                  <Text style={{fontWeight:"bold",fontStyle:'italic'} }>{"Tentative Dates" + " : "}</Text>
+                                  <Text>{'\n'+item['tentative-date']}</Text>
+                              </Text>   
+                          </View>
+                          <View style={ styless.bullet }>
+                              <Text>{'\u2022' + " "}</Text>
+                          </View>
+                          <View style={ styless.bulletText }>                          
+                              <Text>
+                                  <Text style={{fontWeight:"bold",fontStyle:'italic'} }>{"Important Elements" + " : "}</Text>
+                                  <Text>{item['important-elements']}</Text>
+                              </Text>
+                          </View>
+                          <View>
+                              <Text style={{color: 'blue',fontSize:11,fontStyle:'italic'}}
+                                  onPress={() => Linking.openURL("http://"+item['website'])}>
+                                                     {  "link"}
+                             </Text>
+                          </View>
+                          
+                          
+                      </View>
+                    </View>
+                  </Card>
+             );
+            })
+            }
+           </View>
+          </View>
+          </Panel>    
+           
+         }
+       
           </CollapseBody>
       </Collapse>
       </ScrollView>
@@ -484,11 +548,13 @@ const styless = StyleSheet.create({
   container: {
    flex: 1,
    paddingBottom: 100,
+   backgroundColor:"#FDBC5E"
   },
   item: {
     paddingTop: 10,
     fontSize: 18,
     height: 44,
+    fontWeight:'bold',
     fontStyle:'italic'
     // textAlign: 'center',
 

@@ -73,11 +73,9 @@ class Panel extends Component{
                         ></Image>
                     </TouchableHighlight>
                 </View>
-
                 <View style={styles.body} onLayout={this._setMaxHeight.bind(this)}>
                     {this.props.children}
                 </View>
-
             </Animated.View>
         );
     }
@@ -93,9 +91,11 @@ var styles = StyleSheet.create({
         overflow:'hidden'
     },
     titleContainer : {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingBottom:10
     },
     title       : {
+        fontStyle:'italic',
         flex    : 0.5,
         padding : 10,
         color   :'#2a2f43',

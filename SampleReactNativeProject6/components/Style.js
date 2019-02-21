@@ -21,6 +21,7 @@ var Style = StyleSheet.create({
   list_header: {
     fontSize: 17,
     margin:10,
+    fontStyle:'italic',
     flex    : 1,
   },
   list_sub_header: {
