@@ -356,7 +356,35 @@ layoutExample (number, title, type) {
           </Panel>    
           ))    
          }
-       
+          </CollapseBody>
+      </Collapse>
+      <Collapse collapsedHeight="2">
+          <CollapseHeader>
+              <Separator bordered style={styless.sep}>
+              <Text style={styless.item}>Work Description</Text>
+              </Separator>
+          </CollapseHeader>
+          <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
+          <Card>
+            {
+             this.state.board.work_description.map((u, i) => {
+                return (
+                  <View style={ styless.column } key={i}>
+                  <View style={ styless.row }>
+                      <View style={ styless.bullet }>
+                          <Text>{'\u2022' + " "}</Text>
+                      </View>
+                      <View style={ styless.bulletText }>
+                          <Text>
+                              <Text style={ styless.normalText }>{u}</Text>
+                          </Text>
+                      </View>
+                  </View>
+                </View>
+                );
+              })
+            }
+          </Card>
           </CollapseBody>
       </Collapse>
       </ScrollView>
