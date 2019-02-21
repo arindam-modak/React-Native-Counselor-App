@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, View, Text } from 'react-native';
+import { StyleSheet, ScrollView, ActivityIndicator, View, Text,Linking } from 'react-native';
 import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from '../Firebase';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
@@ -247,43 +247,158 @@ layoutExample (number, title, type) {
        
           </CollapseBody>
       </Collapse>
+      <Collapse collapsedHeight="2">
+          <CollapseHeader>
+              <Separator bordered style={styless.sep}>
+              <Text style={styless.item}>Important Facts</Text>
+              </Separator>
+          </CollapseHeader>
+          <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
+          <Card>
+            {
+             this.state.board.important_facts.map((u, i) => {
+                return (
+                  <View style={ styless.column } key={i}>
+                  <View style={ styless.row }>
+                      <View style={ styless.bullet }>
+                          <Text>{'\u2022' + " "}</Text>
+                      </View>
+                      <View style={ styless.bulletText }>
+                          <Text>
+                              <Text style={ styless.normalText }>{u}</Text>
+                          </Text>
+                      </View>
+                  </View>
+                </View>
+                );
+              })
+            }
+          </Card>
+          </CollapseBody>
+      </Collapse>
+      <Collapse collapsedHeight="2">
+          <CollapseHeader>
+              <Separator bordered style={styless.sep}>
+              <Text style={styless.item}>Leading Colleges(Domestic)</Text>
+              </Separator>
+          </CollapseHeader>
+          <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
+          {
+              this.state.board.leading_colleges.map((item, i) => (
+              <Panel title={item['college']} height={1} titleStyle={styless.list} key={i}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={{flex: 1, flexDirection: 'column'}} >
+             
+                   <Card style={{paddingBottom:10,marginTop:-5}}>
+                   <View style={ styless.column } key={i}>
+                   <View style={ styless.row }>
+                   <View style={ styless.bullet }>
+                          <Text>{'\u2022' + " "}</Text>
+                      </View>
+                      <View style={ styless.bulletText }>
+                          <Text>
+                              <Text style={styless.boldText }>{"Location" + " : "}</Text>
+                              <Text style={{flex:1}}>{item['location']+"            "}</Text>
+                          
+                          <Text style={{color: 'blue',fontSize:12,fontStyle:'italic',flex:0.2}}
+                                  onPress={() => Linking.openURL("http://"+item['website'])}>
+                                                       Go to college website
+                        </Text>
+                        </Text>
+                      </View>
+                  </View>
+                  </View>
+                  </Card>
+
+           </View>
+          </View>
+          </Panel>    
+          ))    
+         }
+       
+          </CollapseBody>
+      </Collapse>
+      <Collapse collapsedHeight="2">
+          <CollapseHeader>
+              <Separator bordered style={styless.sep}>
+              <Text style={styless.item}>Leading Colleges(Abroad)</Text>
+              </Separator>
+          </CollapseHeader>
+          <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
+          {
+              this.state.board.institutions_abroad.map((item, i) => (
+              <Panel title={item['college']} height={1} titleStyle={styless.list} key={i}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={{flex: 1, flexDirection: 'column'}} >
+             
+                   <Card style={{paddingBottom:10,marginTop:-5}}>
+                   <View style={ styless.column } key={i}>
+                   <View style={ styless.row }>
+                   <View style={ styless.bullet }>
+                          <Text>{'\u2022' + " "}</Text>
+                      </View>
+                      <View style={ styless.bulletText }>
+                          <Text>
+                              <Text style={styless.boldText }>{"Location" + " : "}</Text>
+                              <Text style={{flex:1}}>{item['location']+"            "}</Text>
+                          
+                          <Text style={{color: 'blue',fontSize:12,fontStyle:'italic',flex:0.2}}
+                                  onPress={() => Linking.openURL("http://"+item['website'])}>
+                                                       Go to college website
+                        </Text>
+                        </Text>
+                      </View>
+                  </View>
+                  </View>
+                  </Card>
+           </View>
+          </View>
+          </Panel>    
+          ))    
+         }
+       
+          </CollapseBody>
+      </Collapse>
       </ScrollView>
     );
-//     return (
-//             <SafeAreaView style={styles.safeArea}>
-//                 <View style={styles.container}>
-//                     <StatusBar
-//                       translucent={true}
-//                       backgroundColor={'rgba(0, 0, 0, 0.3)'}
-//                       barStyle={'light-content'}
-//                     />
-//                     { this.gradient }
-//                     <ScrollView
-//                       style={styles.scrollview}
-//                       scrollEventThrottle={200}
-//                       directionalLockEnabled={true}
-//                     >
-//                         { example3 }
-                        
-                        
-//                     </ScrollView>
-//                 </View>
-//             </SafeAreaView>
-// );
   }
 }
 
 export default CareerDetail;
 
 const styless = StyleSheet.create({
+  column: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    flex: 1
+},
+  row: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      flexWrap: 'wrap',
+      flex: 1,
+      padding: 5
+  },
+  bullet: {
+      width: 10
+  },
+  bulletText: {
+      flex: 1
+  },
+  boldText: {
+      fontWeight: 'bold'
+  },
+  normalText: {
+  },
   container: {
    flex: 1,
    paddingBottom: 100,
   },
   item: {
     paddingTop: 10,
-    fontSize: 20,
+    fontSize: 18,
     height: 44,
+    fontStyle:'italic'
     // textAlign: 'center',
 
   },

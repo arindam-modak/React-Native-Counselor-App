@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button:{
-       borderRadius:10,
-       width:180,
+       borderRadius:5,
+       flex: 1  
   },
   activity: {
     position: 'absolute',
