@@ -387,6 +387,69 @@ layoutExample (number, title, type) {
           </Card>
           </CollapseBody>
       </Collapse>
+      <Collapse collapsedHeight="2">
+          <CollapseHeader>
+              <Separator bordered style={styless.sep}>
+              <Text style={styless.item}>Pros and Cons</Text>
+              </Separator>
+          </CollapseHeader>
+          <CollapseBody style={{borderWidth:4,borderColor:"#FDBC5E"}}>
+              <Panel title="Pros" height={1} titleStyle={styless.list}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={{flex: 1, flexDirection: 'column'}} >
+             
+              <Card>
+                {
+                this.state.board.pros.map((u, i) => {
+                    return (
+                      <View style={ styless.column } key={i}>
+                      <View style={ styless.row }>
+                          <View style={ styless.bullet }>
+                              <Text>{'\u2022' + " "}</Text>
+                          </View>
+                          <View style={ styless.bulletText }>
+                              <Text>
+                                  <Text style={ styless.normalText }>{u}</Text>
+                              </Text>
+                          </View>
+                      </View>
+                    </View>
+                    );
+                  })
+                }
+              </Card>
+           </View>
+          </View>
+          </Panel>    
+          <Panel title="Cons" height={1} titleStyle={styless.list}>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={{flex: 1, flexDirection: 'column'}} >
+             
+              <Card>
+                {
+                this.state.board.cons.map((u, i) => {
+                    return (
+                      <View style={ styless.column } key={i}>
+                      <View style={ styless.row }>
+                          <View style={ styless.bullet }>
+                              <Text>{'\u2022' + " "}</Text>
+                          </View>
+                          <View style={ styless.bulletText }>
+                              <Text>
+                                  <Text style={ styless.normalText }>{u}</Text>
+                              </Text>
+                          </View>
+                      </View>
+                    </View>
+                    );
+                  })
+                }
+              </Card>
+           </View>
+          </View>
+          </Panel>   
+          </CollapseBody>
+      </Collapse>
       </ScrollView>
     );
   }
