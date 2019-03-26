@@ -10,6 +10,7 @@ import ChatBot from './components/ChatBot';
 import CareerList from './components/CareerList';
 import FieldCareers from './components/FieldCareers';
 import CareerDetail from './components/CareerDetail';
+import chat_ui from './components/chat/chat_ui'
 
 const RootStack = createStackNavigator(
   {
@@ -19,6 +20,7 @@ const RootStack = createStackNavigator(
     EditBoard: EditBoardScreen,
     CollapseList: CollapsableList,
     ChatBot: ChatBot,
+    chat_ui:chat_ui,
     CareerList: CareerList,
     FieldCareers: FieldCareers,
     CareerDetail: CareerDetail

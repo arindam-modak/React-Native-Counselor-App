@@ -80,6 +80,17 @@ class BoardScreen extends Component {
                 }}
                 />
             </View>
+            <View style={{padding:40,flex:0.3}}>
+                <Button buttonStyle={styles.button}
+                type="outline"
+                large
+                leftIcon={{name: 'list'}}
+                title='Sample test ui'
+                onPress={() => {
+                  this.props.navigation.navigate('chat_ui');
+                }}
+                />
+            </View>
          </View>
       </View>
     );
