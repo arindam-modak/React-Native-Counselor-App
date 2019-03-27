@@ -5,11 +5,20 @@ import {
   Text,
   View,
 } from 'react-native';
-
+import Voice from 'react-native-voice';
+import Dialogflow from "react-native-dialogflow";
 import {GiftedChat, Actions, Bubble, SystemMessage} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 
 class chat_ui extends React.Component {
+
+  static navigationOptions = {
+    title: 'Chat Bot',
+    headerStyle: {
+      backgroundColor: '#FDBC5E',
+      },
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +26,16 @@ class chat_ui extends React.Component {
       loadEarlier: true,
       typingText: null,
       isLoadingEarlier: false,
+      isLoading: false,
+      query: '',
+      recognized: '',
+      pitch: '',
+      error: '',
+      end: '',
+      started: '',
+      results: [],
+      partialResults: [],
+      isVoiceOn: false
     };
 
     this._isMounted = false;
@@ -28,6 +47,16 @@ class chat_ui extends React.Component {
     this.renderFooter = this.renderFooter.bind(this);
     this.onLoadEarlier = this.onLoadEarlier.bind(this);
     this._isAlright = null;
+    Dialogflow.setConfiguration(
+            "77c9f4ea1f5b45999a9194bba81e99fe", Dialogflow.LANG_ENGLISH 
+    );
+    Voice.onSpeechStart = this.onSpeechStart;
+    Voice.onSpeechRecognized = this.onSpeechRecognized;
+    Voice.onSpeechEnd = this.onSpeechEnd;
+    Voice.onSpeechError = this.onSpeechError;
+    Voice.onSpeechResults = this.onSpeechResults;
+    Voice.onSpeechPartialResults = this.onSpeechPartialResults;
+    Voice.onSpeechVolumeChanged = this.onSpeechVolumeChanged;
   }
 
   componentWillMount() {
@@ -40,6 +69,7 @@ class chat_ui extends React.Component {
   }
 
   componentWillUnmount() {
+    Voice.destroy().then(Voice.removeAllListeners);
     this._isMounted = false;
   }
 
@@ -63,16 +93,34 @@ class chat_ui extends React.Component {
     }, 1000); // simulating network
   }
 
+  updateResult = (qu) => {
+    this.setState({
+        results: qu[0].result.fulfillment.messages,
+        query: ""
+    });
+    console.log("**************");
+    console.log(this.state.results);
+    for(var i=0;i<this.state.results.length;i++)
+      this.onReceive(this.state.results[i].speech);
+  }
+
   onSend(messages = []) {
     this.setState((previousState) => {
       return {
         messages: GiftedChat.append(previousState.messages, messages),
       };
     });
-
+    const qu = [];
+    const that = this;
+    console.log("**************");
+    console.log(messages[0].text);
+    Dialogflow.requestQuery(messages[0].text, result=>{ qu.push(result); }, error=>console.log(error));
+    setTimeout(function afterTwoSeconds() {
+      console.log(qu);
+      that.updateResult(qu);
+    }, 2000)
     // for demo purpose
     //this.answerDemo(messages);
-    this.onReceive('Alright');
   }
 
   answerDemo(messages) {
