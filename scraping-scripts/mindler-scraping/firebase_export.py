@@ -4,15 +4,17 @@ import pickle
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+import requests
+import json
+import time
 
+# cred = credentials.Certificate("service.json")
 
-cred = credentials.Certificate("service.json")
+# firebase_admin.initialize_app(cred, {
+#     'projectId': "counselling-bot-10fda",
+# })
 
-firebase_admin.initialize_app(cred, {
-    'projectId': "counselling-bot-10fda",
-})
-
-db = firestore.client()
+# db = firestore.client()
 
 config = {
     "apiKey": "AIzaSyA1QuFJ-oeqLp0Q0akmBPVy9YUY84cxsoc",
@@ -112,3 +114,46 @@ for i in inp:
         'cons' : [ fac for fac in j.cons]
         }
         db.collection(u'AllCareers').document().set(data)'''
+
+location_firebase_lat = {}
+location_firebase_lng = {}
+locations_total = {}
+for i in objects:
+    for j in i.career:
+        for k in j.leading_colleges:
+            locations_total[k[1]] = 1
+
+for key in locations_total:
+    time.sleep(0.2)
+    url = "http://www.mapquestapi.com/geocoding/v1/address?key=%20rZiYsbTVoDtG20gAtHZxaXarvFdpbCTH&location="+key
+    myResponse = requests.get(url)
+    # For successful API call, response code will be 200 (OK)
+    if(myResponse.ok):
+        jData = json.loads(myResponse.content)
+        if len(jData['results'][0]['locations']) >= 1:
+            location_firebase_lat[key] = jData['results'][0]['locations'][0]['latLng']['lat']
+            location_firebase_lng[key] = jData['results'][0]['locations'][0]['latLng']['lng']
+            print(jData['results'][0]['locations'][0]['latLng']['lat'],jData['results'][0]['locations'][0]['latLng']['lng'])
+
+    else:
+        # If response code is not ok (200), print the resulting http error code with description
+        myResponse.raise_for_status()
+
+cred = credentials.Certificate("service.json")
+
+firebase_admin.initialize_app(cred, {
+    'projectId': "counselling-bot-10fda",
+})
+
+db = firestore.client()
+
+for key in location_firebase_lat:
+    data = {
+        'Name': key,
+        'Latitude': location_firebase_lat[key],
+        'Longitude': location_firebase_lng[key]
+    }
+    db.collection(u'Locations').document().set(data)
+
+print(location_firebase_lat)
+print(location_firebase_lng)

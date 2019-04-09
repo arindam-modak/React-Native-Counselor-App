@@ -9,6 +9,19 @@ import Voice from 'react-native-voice';
 import Dialogflow from "react-native-dialogflow";
 import {GiftedChat, Actions, Bubble, SystemMessage} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
+import * as firebase from 'firebase';
+
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+      "projectId": "counselling-bot-10fda",
+      "apiKey": "AIzaSyA1QuFJ-oeqLp0Q0akmBPVy9YUY84cxsoc",
+      "authDomain": "counselling-bot-10fda.firebaseapp.com",
+      "databaseURL": "https://counselling-bot-10fda.firebaseio.com",
+      "storageBucket": "counselling-bot-10fda.appspot.com",
+      "messagingSenderId": "984760016813"
+  })
+}
+const db = firebase.firestore();
 
 class chat_ui extends React.Component {
 
@@ -35,9 +48,11 @@ class chat_ui extends React.Component {
       started: '',
       results: [],
       partialResults: [],
-      isVoiceOn: false
+      isVoiceOn: false,
+      col_loc: []
     };
 
+    this.getDistance = this.getDistance.bind(this);
     this._isMounted = false;
     this.onSend = this.onSend.bind(this);
     this.onReceive = this.onReceive.bind(this);
@@ -93,6 +108,23 @@ class chat_ui extends React.Component {
     }, 1000); // simulating network
   }
 
+  getDistance(lat1,long1,lat2,long2)
+  {
+    var R = 6371e3; // metres
+    var φ1 = lat1* (Math.PI / 180);
+    var φ2 = lat2* (Math.PI / 180);
+    var Δφ = (lat2-lat1)* (Math.PI / 180);
+    var Δλ = (long2-long1)* (Math.PI / 180);
+    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    var d = R * c;
+    return d;
+  }
+
+
   updateResult = (qu) => {
     this.setState({
         results: qu[0].result.fulfillment.messages,
@@ -100,8 +132,116 @@ class chat_ui extends React.Component {
     });
     console.log("**************");
     console.log(this.state.results);
-    for(var i=0;i<this.state.results.length;i++)
-      this.onReceive(this.state.results[i].speech);
+    let flag=0;
+    let promises = [];
+    let col_loc = [];
+    var description = [];
+    if (qu[0].result.metadata.intentName=="nearest_colleges")
+    {
+        flag=1;
+        let career = qu[0].result.parameters.Carrer;
+        let location = qu[0].result.parameters['geo-city'];
+        promises.push(
+          new Promise((resolve, reject) => {
+            resolve(
+              fetch('https://www.mapquestapi.com/geocoding/v1/address?key=%20rZiYsbTVoDtG20gAtHZxaXarvFdpbCTH&location='+location)
+                .then(function(response) {
+                  //console.log(JSON.parse(response._bodyText));
+                  var responseJson = JSON.parse(response._bodyText);
+                  lat = responseJson.results[0].locations[0].latLng.lat;
+                  lng = responseJson.results[0].locations[0].latLng.lng;
+                  let newdata = {
+                    'lat' : lat,
+                    'lng' : lng
+                  }
+                  //console.log(newdata);
+                  return newdata;
+                })
+              )
+            }) 
+          );
+        console.log("YAAAAAAAAAAAAAA");
+        
+        const ref = db.collection('AllCareers').where('name','==',career);
+        //console.log(navigation.getParam('CareerName').toString().slice(1,-3));
+        
+        ref.get().then((snapshot) => {
+          //console.log(snapshot);
+          if (!snapshot.empty) {
+            //console.log(snapshot.docs[0]);
+            //var description=[];
+            description = snapshot.docs[0].data().leading_colleges;
+            var len=description.length;
+            for(var i=0;i<len;i++){
+
+              promises.push(
+                new Promise((resolve, reject) => {
+                  resolve(
+                    fetch('https://www.mapquestapi.com/geocoding/v1/address?key=%20rZiYsbTVoDtG20gAtHZxaXarvFdpbCTH&location='+description[i].location)
+                      .then(function(response) {
+                        //console.log(JSON.parse(response._bodyText));
+                        var responseJson = JSON.parse(response._bodyText);
+                        lat = responseJson.results[0].locations[0].latLng.lat;
+                        lng = responseJson.results[0].locations[0].latLng.lng;
+                        let newdata = {
+                          'lat' : lat,
+                          'lng' : lng
+                        }
+                        //console.log(newdata);
+                        return newdata;
+                      })
+                    )
+                  }) 
+                );  
+            }
+          }
+      });
+    }
+    const that2 = this;
+    if(flag==1)
+    {
+      setTimeout(function afterTwoSeconds() {
+        Promise.all(promises)
+        .then(function(values){
+          console.log(values);
+            for(var i=1;i<values.length;i++)
+            {
+              console.log(values[i]);
+              let newd = {
+                          'College' : description[i-1].college,
+                          'Location' : description[i-1].location,
+                          'Website' : description[i-1].website,
+                          'lat' : values[i].lat,
+                          'lng' : values[i].lng
+              }
+
+              col_loc.push(newd);
+
+            }
+
+            console.log(col_loc);
+
+            col_loc.sort(function(a, b){
+                return that2.getDistance(a.lat,a.lng,values[0].lat,values[0].lng) - that2.getDistance(b.lat,b.lng,values[0].lat,values[0].lng);
+            })
+
+            //console.log(col_loc);
+            var minm = 5;
+            if(col_loc.length<5)
+            {
+              minm = col_loc.length;
+            }
+            that2.onReceive("Some of the best colleges near you are : ");
+            for(var i=0;i<minm;i++)
+              that2.onReceive("College : "+col_loc[i].College + "\n" + "Location : "+col_loc[i].Location+"\n"+"Website : "+col_loc[i].Website);
+        });
+      }, 5000);
+    }
+    else
+    {
+      for(var i=0;i<this.state.results.length;i++)
+        this.onReceive(this.state.results[i].speech);
+    }
   }
 
   onSend(messages = []) {
