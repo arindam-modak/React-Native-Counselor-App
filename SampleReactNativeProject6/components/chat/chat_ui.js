@@ -136,6 +136,7 @@ class chat_ui extends React.Component {
     let promises = [];
     let col_loc = [];
     var description = [];
+    var phrases = [];
     if (qu[0].result.metadata.intentName=="nearest_colleges")
     {
         flag=1;
@@ -197,6 +198,67 @@ class chat_ui extends React.Component {
           }
       });
     }
+    else if(qu[0].result.metadata.intentName=="Default Fallback Intent")
+    {
+       flag=2;
+       phrases.push('Steps to a career in astronomy');
+       phrases.push('Ways to do mechanical engineering');
+       phrases.push('Path to be a Economics');
+       phrases.push('How to become a Mechanical Engineering');
+       phrases.push('Display leading colleges of Film making');
+       phrases.push('best college of Music in india');
+       phrases.push('Show me all colleges of Astronomy in India');
+       phrases.push('Leading colleges of Music in India');
+       phrases.push('demerits of this job');
+       phrases.push('disadvantage of this career');
+       phrases.push('Why should we not work in Economics');
+       phrases.push('Tell me some demerits of Bioinformatics');
+       phrases.push('Economics exams');
+       phrases.push('Entrance test in Mechanical Engineering');
+       phrases.push('Entry exams in Film making');
+       phrases.push('Economics important facts');
+       phrases.push('Show me some facts of Bioinformatics');
+       phrases.push('Important facts of Economics');
+       phrases.push('tell me about the careers in this');
+       phrases.push('what are the job opportunities');
+       phrases.push('All possible jobs in music');
+       phrases.push('All possible economics professions or jobs');
+       phrases.push('Tell me possible professions in Mechanical Engineering');
+       phrases.push('tell me the pros of this career');
+       phrases.push('what are the advantages');
+       phrases.push('Tell me pros of Bioinformatics');
+       phrases.push('Merits of Economics');
+       phrases.push('Tell me about work in Music');
+       phrases.push('Work description in astronomy');
+       phrases.push('describe economics work');
+       phrases.push('Career for me if i have Maths in class 12');
+       phrases.push('I have interest in Biology career paths for me');
+       phrases.push('If my stream is Science in class 12 what are prefer career paths for me');
+       phrases.push('what are the nearest colleges for economics around delhi');
+       phrases.push('best colleges for Mechanical Engineering near Mumbai');
+
+       for(var i=0;i<phrases.length;i++){
+
+              promises.push(
+                new Promise((resolve, reject) => {
+                  resolve(
+                    fetch('https://api.dandelion.eu/datatxt/sim/v1/?text1='+phrases[i]+'&text2='+qu[0].result.resolvedQuery+'&token=943bcf6c05064b029e7bc2f6e397d646')
+                      .then(function(response) {
+                        //console.log(response);
+                        console.log(JSON.parse(response._bodyText));
+                        var responseJson = JSON.parse(response._bodyText);
+                        let newdata = {
+                          'similarity' : responseJson.similarity
+                        }
+                        //console.log(newdata);
+                        return newdata;
+                      })
+                    )
+                  }) 
+                );  
+            }
+
+    }
     const that2 = this;
     if(flag==1)
     {
@@ -236,6 +298,30 @@ class chat_ui extends React.Component {
               that2.onReceive("College : "+col_loc[i].College + "\n" + "Location : "+col_loc[i].Location+"\n"+"Website : "+col_loc[i].Website);
         });
       }, 5000);
+    }
+    else if(flag==2)
+    {
+        that2.onReceive(that2.state.results[0].speech);
+        setTimeout(function afterTwoSeconds() {
+          Promise.all(promises)
+          .then(function(values){
+            console.log(values);
+            var maxm = 0;
+            var phrase = "";
+            for(var i=0;i<values.length;i++)
+            {
+                if(values[i].similarity>maxm)
+                {
+                  maxm = values[i].similarity;
+                  phrase = phrases[i];
+                }
+
+            }
+
+            that2.onReceive("Did you meant something like this: "+phrase);
+
+        });
+       }, 5000);
     }
     else
     {
