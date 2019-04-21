@@ -198,9 +198,9 @@ export default class Example extends React.Component {
   render() {
     return (
       <GiftedChat
-        messages={this.state.messages}
+        //messages={this.state.messages}
         onSend={this.onSend}
-        loadEarlier={this.state.loadEarlier}
+        //loadEarlier={this.state.loadEarlier}
         onLoadEarlier={this.onLoadEarlier}
         isLoadingEarlier={this.state.isLoadingEarlier}
 
