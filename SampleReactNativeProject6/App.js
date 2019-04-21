@@ -10,7 +10,8 @@ import ChatBot from './components/ChatBot';
 import CareerList from './components/CareerList';
 import FieldCareers from './components/FieldCareers';
 import CareerDetail from './components/CareerDetail';
-import chat_ui from './components/chat/chat_ui'
+import chat_ui from './components/chat/chat_ui';
+import Register from './components/Register';
 
 const RootStack = createStackNavigator(
   {
@@ -23,7 +24,8 @@ const RootStack = createStackNavigator(
     chat_ui:chat_ui,
     CareerList: CareerList,
     FieldCareers: FieldCareers,
-    CareerDetail: CareerDetail
+    CareerDetail: CareerDetail,
+    Register: Register
   },
   {
     initialRouteName: 'Board',

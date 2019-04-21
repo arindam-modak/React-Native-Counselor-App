@@ -4,6 +4,15 @@ import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from '../Firebase';
 import SplashScreen from 'react-native-splash-screen';
 import AwesomeButton from "react-native-really-awesome-button";
+import { createDrawerNavigator, createAppContainer } from 'react-navigation';
+import chat_ui from './chat/chat_ui'
+
+// const MyDrawerNav = createDrawerNavigator({
+//   Chatbot: chat_ui
+// })
+
+// const MyDrawer = createAppContainer(MyDrawerNav);
+
 class BoardScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
@@ -17,11 +26,20 @@ class BoardScreen extends Component {
       headerStyle: {
       backgroundColor: '#FDBC5E',
       },
+      headerRight: (
+        <Button
+          onPress={() => {
+                          navigation.navigate('Register');
+                        }}
+          title="Login"
+          color="#fff"
+        />
+      ),
     };
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isLoading: false
     };

@@ -4,6 +4,7 @@ import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from '../Firebase';
 import Voice from 'react-native-voice';
 import Dialogflow from "react-native-dialogflow";
+import { GiftedChat } from 'react-native-gifted-chat';
 
 class ChatBot extends Component {
 
@@ -26,7 +27,8 @@ class ChatBot extends Component {
       started: '',
       results: [],
       partialResults: [],
-      isVoiceOn: false
+      isVoiceOn: false,
+      messages: []
     };
     Dialogflow.setConfiguration(
             "77c9f4ea1f5b45999a9194bba81e99fe", Dialogflow.LANG_ENGLISH 
@@ -42,6 +44,19 @@ class ChatBot extends Component {
 
   componentWillUnmount() {
     Voice.destroy().then(Voice.removeAllListeners);
+    this.setState({
+      messages: [
+        {
+          text: 'Hii',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'Chatbot',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+      ],
+    })
   }
 
   onSpeechStart = e => {
@@ -150,6 +165,15 @@ class ChatBot extends Component {
     }
   }
 
+
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }))
+    
+  }
+
+
   updateTextInput = (text, field) => {
     const state = this.state
     state[field] = text;
@@ -194,6 +218,19 @@ class ChatBot extends Component {
           </View>
         </View>
     );
+
+
+    return (
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={messages => this.onSend(messages)}
+        user={{
+          _id: 1,
+        }}
+      />
+    )
+
+
   }
 }
 

@@ -4,12 +4,14 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableHighlight
 } from 'react-native';
 import Voice from 'react-native-voice';
 import Dialogflow from "react-native-dialogflow";
 import {GiftedChat, Actions, Bubble, SystemMessage} from 'react-native-gifted-chat';
 import CustomActions from './CustomActions';
 import * as firebase from 'firebase';
+import {AsyncStorage} from 'react-native';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -137,6 +139,32 @@ class chat_ui extends React.Component {
     let col_loc = [];
     var description = [];
     var phrases = [];
+    var suggestions = [];
+    AsyncStorage.getItem('Username').then((username) => {
+      firebase.firestore().collection("Users").where("Username", "==", username)
+        .get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                console.log(doc.id, " => ", doc.data());
+                let searches = doc.data().Searches;
+                if(!searches) searches = [];
+                var flag=0;
+                for(var i=0;i<searches.length;i++)
+                {
+                  if(searches[i] == qu[0].result.parameters.Carrer)
+                  {
+                    flag=1;
+                    break;
+                  }
+                }
+                if(flag==0 && qu[0].result.parameters.Carrer)
+                {
+                  searches.push(qu[0].result.parameters.Carrer);
+                  firebase.firestore().collection("Users").doc(doc.id).update({'Searches': searches});
+                }
+            });
+      })
+    })
     if (qu[0].result.metadata.intentName=="nearest_colleges")
     {
         flag=1;
@@ -201,48 +229,48 @@ class chat_ui extends React.Component {
     else if(qu[0].result.metadata.intentName=="Default Fallback Intent")
     {
        flag=2;
-       phrases.push('Steps to a career in astronomy');
-       phrases.push('Ways to do mechanical engineering');
-       phrases.push('Path to be a Economics');
-       phrases.push('How to become a Mechanical Engineering');
-       phrases.push('Display leading colleges of Film making');
-       phrases.push('best college of Music in india');
-       phrases.push('Show me all colleges of Astronomy in India');
-       phrases.push('Leading colleges of Music in India');
+       phrases.push('Steps to a career in x');
+       phrases.push('Ways to do x');
+       phrases.push('Path to be a x');
+       phrases.push('How to become a x');
+       phrases.push('Display leading colleges of x');
+       phrases.push('best college of x in india');
+       phrases.push('Show me all colleges of x in India');
+       phrases.push('Leading colleges of x in India');
        phrases.push('demerits of this job');
        phrases.push('disadvantage of this career');
-       phrases.push('Why should we not work in Economics');
-       phrases.push('Tell me some demerits of Bioinformatics');
-       phrases.push('Economics exams');
-       phrases.push('Entrance test in Mechanical Engineering');
-       phrases.push('Entry exams in Film making');
-       phrases.push('Economics important facts');
-       phrases.push('Show me some facts of Bioinformatics');
-       phrases.push('Important facts of Economics');
+       phrases.push('Why should we not work in x');
+       phrases.push('Tell me some demerits of x');
+       phrases.push('x exams');
+       phrases.push('Entrance test in x');
+       phrases.push('Entry exams in x');
+       phrases.push('x important facts');
+       phrases.push('Show me some facts of x');
+       phrases.push('Important facts of x');
        phrases.push('tell me about the careers in this');
        phrases.push('what are the job opportunities');
-       phrases.push('All possible jobs in music');
-       phrases.push('All possible economics professions or jobs');
-       phrases.push('Tell me possible professions in Mechanical Engineering');
+       phrases.push('All possible jobs in x');
+       phrases.push('All possible x professions or jobs');
+       phrases.push('Tell me possible professions in x');
        phrases.push('tell me the pros of this career');
        phrases.push('what are the advantages');
-       phrases.push('Tell me pros of Bioinformatics');
-       phrases.push('Merits of Economics');
-       phrases.push('Tell me about work in Music');
-       phrases.push('Work description in astronomy');
-       phrases.push('describe economics work');
-       phrases.push('Career for me if i have Maths in class 12');
-       phrases.push('I have interest in Biology career paths for me');
-       phrases.push('If my stream is Science in class 12 what are prefer career paths for me');
-       phrases.push('what are the nearest colleges for economics around delhi');
-       phrases.push('best colleges for Mechanical Engineering near Mumbai');
+       phrases.push('Tell me pros of x');
+       phrases.push('Merits of x');
+       phrases.push('Tell me about work in x');
+       phrases.push('Work description in x');
+       phrases.push('describe x work');
+       phrases.push('Career for me if i have x in class 12');
+       phrases.push('I have interest in x career paths for me');
+       phrases.push('If my stream is x in class 12 what are prefer career paths for me');
+       phrases.push('what are the nearest colleges for x around y');
+       phrases.push('best colleges for x near y');
 
        for(var i=0;i<phrases.length;i++){
 
               promises.push(
                 new Promise((resolve, reject) => {
                   resolve(
-                    fetch('https://api.dandelion.eu/datatxt/sim/v1/?text1='+phrases[i]+'&text2='+qu[0].result.resolvedQuery+'&token=943bcf6c05064b029e7bc2f6e397d646')
+                    fetch('https://api.dandelion.eu/datatxt/sim/v1/?text1='+phrases[i]+'&text2='+qu[0].result.resolvedQuery+'&token=d4d102846e654c9cbadf563f814ee850')
                       .then(function(response) {
                         //console.log(response);
                         console.log(JSON.parse(response._bodyText));
@@ -262,6 +290,7 @@ class chat_ui extends React.Component {
     const that2 = this;
     if(flag==1)
     {
+      that2.onReceive("Some of the best colleges near you are : ");
       setTimeout(function afterTwoSeconds() {
         Promise.all(promises)
         .then(function(values){
@@ -293,7 +322,7 @@ class chat_ui extends React.Component {
             {
               minm = col_loc.length;
             }
-            that2.onReceive("Some of the best colleges near you are : ");
+
             for(var i=0;i<minm;i++)
               that2.onReceive("College : "+col_loc[i].College + "\n" + "Location : "+col_loc[i].Location+"\n"+"Website : "+col_loc[i].Website);
         });
@@ -321,7 +350,7 @@ class chat_ui extends React.Component {
             that2.onReceive("Did you meant something like this: "+phrase);
 
         });
-       }, 5000);
+       }, 4000);
     }
     else
     {
@@ -344,7 +373,7 @@ class chat_ui extends React.Component {
     setTimeout(function afterTwoSeconds() {
       console.log(qu);
       that.updateResult(qu);
-    }, 2000)
+    }, 3000)
     // for demo purpose
     //this.answerDemo(messages);
   }
