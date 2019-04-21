@@ -36,7 +36,7 @@ class chat_ui extends React.Component {
     super(props);
     this.state = {
       messages: [],
-      loadEarlier: true,
+      loadEarlier: false,
       typingText: null,
       isLoadingEarlier: false,
       isLoading: false,
@@ -500,6 +500,6 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: '#aaa',
+    color: '#000000',
   },
 });
