@@ -84,7 +84,7 @@ class BoardScreen extends Component {
                         leftIcon={{name: 'face'}}
                         title='Chat Bot'
                         onPress={() => {
-                        this.props.navigation.navigate('ChatBot');
+                        this.props.navigation.navigate('chat_ui');
                         }} />
                     </View>
                 </View>
@@ -95,6 +95,7 @@ class BoardScreen extends Component {
                 leftIcon={{name: 'list'}}
                 title='Psychometric Test'
                 onPress={() => {
+                  this.props.navigation.navigate('psycho');
                 }}
                 />
             </View>
