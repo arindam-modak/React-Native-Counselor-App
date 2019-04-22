@@ -7,7 +7,6 @@ from firebase_admin import firestore
 import requests
 import json
 import time
-from firebase_admin import db
 
 cred = credentials.Certificate("service.json")
 
