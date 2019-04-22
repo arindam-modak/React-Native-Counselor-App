@@ -41,12 +41,38 @@ class BoardScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false
+      isLoading: false,
+      questions: [],
+      Artistic: 0,
+      Conventional: 0,
+      Enterprising: 0,
+      Investigative: 0,
+      Realistic: 0,
+      Social: 0
     };
   }
 
   componentDidMount() {
-    SplashScreen.hide();
+    let temp = [];
+    let that = this;
+    firebase.firestore().collection("PsychometricQuestions")
+        .get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                if(doc.exists)
+                {
+                  //console.log(doc.data());
+                  temp.push(doc.data());
+                }
+            });
+    })
+    setTimeout(function afterTwoSeconds() {
+      console.log(temp);
+      that.setState({
+        questions: temp
+      })
+      SplashScreen.hide();
+    }, 5000);
   }
 
   render() {
@@ -84,7 +110,7 @@ class BoardScreen extends Component {
                         leftIcon={{name: 'face'}}
                         title='Chat Bot'
                         onPress={() => {
-                        this.props.navigation.navigate('ChatBot');
+                        this.props.navigation.navigate('chat_ui');
                         }} />
                     </View>
                 </View>
@@ -95,6 +121,16 @@ class BoardScreen extends Component {
                 leftIcon={{name: 'list'}}
                 title='Psychometric Test'
                 onPress={() => {
+                  this.props.navigation.navigate('psycho',{
+                    QuestionList: this.state.questions,
+                    Questionno: 0,
+                    Artistic: 0,
+                    Conventional: 0,
+                    Enterprising: 0,
+                    Investigative: 0,
+                    Realistic: 0,
+                    Social: 0
+                  });
                 }}
                 />
             </View>
