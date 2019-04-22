@@ -57,6 +57,7 @@ class BoardScreen extends Component {
           </View>
       )
     }
+    const ques =["question1","question2"];
     return (
       <View style={styles.container}>
          <View style={styles.container1}>
@@ -95,7 +96,10 @@ class BoardScreen extends Component {
                 leftIcon={{name: 'list'}}
                 title='Psychometric Test'
                 onPress={() => {
-                  this.props.navigation.navigate('psycho');
+                  this.props.navigation.navigate('psycho',{
+                    QuestionList: ques,
+                    Questionno:0,
+                  });
                 }}
                 />
             </View>

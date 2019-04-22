@@ -13,10 +13,10 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
             backgroundColor: '#FDBC5E',
             },
         };
-        constructor() {
-          super();
+        constructor(props) {
+          super(props);
           this.state = {
-        
+
           };
         }
         updateTextInput = (text, field) => {
@@ -27,17 +27,20 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
        
         
         render() {
-        
+           // const questions = ["question1","question2"];
+          const questions = this.props.navigation.getParam('QuestionList');
+          const ques = this.props.navigation.getParam('Questionno');
+          const q = ques+1;
           return (
             <ScrollView style={styless.container}>
             <View style={styless.question}>
             <Card style={{borderRadius:15}}>
                     <CardTitle 
-                      title={<Text style={{fontSize:40}}>Question 1</Text>}
+                      title={<Text style={{fontSize:40}}>{"Question "+ q }</Text>}
                       titleStyle={{fontSize:200}}
                       style={{marginTop:10,marginBottom:100,fontSize:200}}
                      />
-                    <CardContent text={<Text style={{fontSize:30,fontStyle: 'italic'}}>Here is you first question................................................................</Text>} />  
+                    <CardContent text={<Text style={{fontSize:20,fontStyle: 'italic'}}>{questions[ques]}</Text>} />  
                   </Card>
             </View>
                   <View style={styless.container3}>
@@ -48,7 +51,10 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
                       //  leftIcon={{name: 'list'}}
                         title={<Text style= {{color:'#000000'}}>Yes</Text>}
                         onPress={() => {
-                        //this.props.navigation.navigate('CareerList');
+                            this.props.navigation.navigate('psycho',{
+                            QuestionList:this.props.navigation.getParam('QuestionList'),
+                            Questionno:this.props.navigation.getParam('Questionno')+1,
+                        });
                         }}
                         />
                     </View>
@@ -59,7 +65,10 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
                       //  leftIcon={{name: 'face'}}
                         title={<Text style= {{color:'#000000'}}>No </Text>}
                         onPress={() => {
-                       // this.props.navigation.navigate('chat_ui');
+                        this.props.navigation.navigate('psycho',{
+                            QuestionList:this.props.navigation.getParam('QuestionList'),
+                            Questionno:this.props.navigation.getParam('Questionno')+1,
+                        });
                         }} />
                     </View>
                 </View>
