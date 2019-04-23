@@ -48,6 +48,18 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
               if(questions[ques-1].Tag=="Realistic") Realistic++;
               if(questions[ques-1].Tag=="Social") Social++;
             }
+
+            firebase.firestore().collection("AllCareers")
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        if(doc.exists)
+                        {
+                          data = doc.data();
+                        }
+                    });
+            })
+
           }
           
           if(ques==questions.length)

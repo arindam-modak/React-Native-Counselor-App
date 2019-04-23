@@ -51,7 +51,9 @@ class chat_ui extends React.Component {
       results: [],
       partialResults: [],
       isVoiceOn: false,
-      col_loc: []
+      col_loc: [],
+      issuggested: false,
+      askedcareers: []
     };
 
     this.getDistance = this.getDistance.bind(this);
@@ -140,15 +142,37 @@ class chat_ui extends React.Component {
     var description = [];
     var phrases = [];
     var suggestions = [];
+
+    var askedcareers = [];
+    askedcareers = this.state.askedcareers;
+    var flag3 = 0;
+    for(var i=0;i<askedcareers.length;i++)
+    {
+      if(askedcareers[i]==qu[0].result.parameters.Carrer)
+      {
+        flag3=1;
+        break;
+      }
+    }
+    if(qu[0].result.parameters.Carrer && flag3==0) 
+    {
+      askedcareers.push(qu[0].result.parameters.Carrer);
+      this.setState({
+        askedcareers : askedcareers
+      })
+    }
+    //console.log("askedcareers : "+askedcareers);
+
     AsyncStorage.getItem('Username').then((username) => {
       firebase.firestore().collection("Users").where("Username", "==", username)
         .get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
-                console.log(doc.id, " => ", doc.data());
+                //console.log(doc.id, " => ", doc.data());
                 let searches = doc.data().Searches;
                 if(!searches) searches = [];
                 var flag=0;
+                //console.log("11111111111111111111");
                 for(var i=0;i<searches.length;i++)
                 {
                   if(searches[i] == qu[0].result.parameters.Carrer)
@@ -157,13 +181,17 @@ class chat_ui extends React.Component {
                     break;
                   }
                 }
+                //console.log("22222222222222222222222");
                 if(flag==0 && qu[0].result.parameters.Carrer)
                 {
                   searches.push(qu[0].result.parameters.Carrer);
                   firebase.firestore().collection("Users").doc(doc.id).update({'Searches': searches});
                 }
+                //console.log("333333333333333333333333");
             });
       })
+      //console.log("44444444444444444444");
+
     })
     if (qu[0].result.metadata.intentName=="nearest_colleges")
     {
@@ -356,6 +384,56 @@ class chat_ui extends React.Component {
     {
       for(var i=0;i<this.state.results.length;i++)
         this.onReceive(this.state.results[i].speech);
+
+      var issuggested = false;
+      var that = this;
+      if(!this.state.issuggested)
+      {
+        firebase.firestore().collection("Recommendation")
+            .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    //console.log(doc.data());
+                    var data = doc.data();
+                    var dataleft = data.left;
+                    var dataright = data.right;
+                    var count = 0;
+                    //console.log("111111111111111111");
+                    for(var j=0;j<dataleft.length;j++)
+                    {
+                      //console.log("@@@@@@@@@@@@@@@@@@"+j);
+                      for(var k=0;k<that.state.askedcareers.length;k++)
+                      {
+                        //console.log(that.state.askedcareers[k]+ " " +dataleft[j])
+                        if(that.state.askedcareers[k]==dataleft[j])
+                        {
+                          //console.log("@@@@@@@@@@@@@@@@@@");
+                          count++;
+                          break;
+                        }
+                      }
+                    }
+                    //console.log(that.state.askedcareers);
+                    //console.log(count);
+                    if(count==dataleft.length)
+                    {
+                      that.onReceive("You my also search for career like : "+dataright[0]);
+                      issuggested = true;
+                    }
+                    //console.log("!!!!!!!!!!!!!!!!!!!");
+                    //console.log(dataleft);
+                    //console.log(dataright);
+                });
+        })
+        setTimeout(function afterTwoSeconds() {
+          if(issuggested==true)
+          {
+            that.setState({
+              issuggested : true
+            })
+          }
+        }, 4000);
+      }
     }
   }
 

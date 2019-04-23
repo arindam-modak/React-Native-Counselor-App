@@ -7,6 +7,7 @@ from firebase_admin import firestore
 import requests
 import json
 import time
+import random
 
 cred = credentials.Certificate("service.json")
 
@@ -98,23 +99,24 @@ for i in inp:
     db.collection(u'Fieldlist').document().set(data)'''
 
 
-'''for i in objects:
-    for j in i.career:
-        data = {
-        'superCareer': i.name ,
-        'name' : str(j.name).lstrip().rstrip() ,
-        'summary' : str(j.summary), 
-        'professions' : [ { pro[0]: pro[1] }  for pro in j.professions ],
-        'career_path' : [ { 'stream': j.career_path[pro][0], 'graduation': j.career_path[pro][1], 'after-graduation': j.career_path[pro][2], 'after-post-graduation': j.career_path[pro][3] }  for pro in range(1,len(j.career_path)) ],
-        'important_facts' : [ fac for fac in j.important_facts],
-        'leading_colleges' : [ { 'college': j.leading_colleges[pro][0], 'location': j.leading_colleges[pro][1], 'website': j.leading_colleges[pro][2] }  for pro in range(1,len(j.leading_colleges)) ],
-        'institutions_abroad' : [ { 'college': j.institutions_abroad[pro][0], 'location': j.institutions_abroad[pro][1], 'website': j.institutions_abroad[pro][2] }  for pro in range(1,len(j.institutions_abroad)) ],
-        'entrance_exams' : [ { 'college': j.entrance_exams[pro][0], 'tentative-date': j.entrance_exams[pro][1], 'important-elements': j.entrance_exams[pro][2], 'website': j.entrance_exams[pro][3] }  for pro in range(1,len(j.entrance_exams)) ],
-        'work_description' : [ fac for fac in j.work_description],
-        'pros' : [ fac for fac in j.pros],
-        'cons' : [ fac for fac in j.cons]
-        }
-        db.collection(u'AllCareers').document().set(data)'''
+# for i in objects:
+#     for j in i.career:
+#         data = {
+#         'superCareer': i.name ,
+#         'name' : str(j.name).lstrip().rstrip() ,
+#         'summary' : str(j.summary), 
+#         'professions' : [ { pro[0]: pro[1] }  for pro in j.professions ],
+#         'career_path' : [ { 'stream': j.career_path[pro][0], 'graduation': j.career_path[pro][1], 'after-graduation': j.career_path[pro][2], 'after-post-graduation': j.career_path[pro][3] }  for pro in range(1,len(j.career_path)) ],
+#         'important_facts' : [ fac for fac in j.important_facts],
+#         'leading_colleges' : [ { 'college': j.leading_colleges[pro][0], 'location': j.leading_colleges[pro][1], 'website': j.leading_colleges[pro][2] }  for pro in range(1,len(j.leading_colleges)) ],
+#         'institutions_abroad' : [ { 'college': j.institutions_abroad[pro][0], 'location': j.institutions_abroad[pro][1], 'website': j.institutions_abroad[pro][2] }  for pro in range(1,len(j.institutions_abroad)) ],
+#         'entrance_exams' : [ { 'college': j.entrance_exams[pro][0], 'tentative-date': j.entrance_exams[pro][1], 'important-elements': j.entrance_exams[pro][2], 'website': j.entrance_exams[pro][3] }  for pro in range(1,len(j.entrance_exams)) ],
+#         'work_description' : [ fac for fac in j.work_description],
+#         'pros' : [ fac for fac in j.pros],
+#         'cons' : [ fac for fac in j.cons],
+#         'salary' : random.randint(800000,4000000)
+#         }
+#         db.collection(u'AllCareers').document().set(data)
 
 # location_firebase_lat = {}
 # location_firebase_lng = {}
@@ -170,3 +172,55 @@ for i in inp:
 #     print('"'+str(i).lstrip().rstrip()+'",'+'"'+str(i).lstrip().rstrip().upper()+'",'+'"'+str(i).lstrip().rstrip().lower()+'"')
     
 
+
+# career_list = []
+# for i in objects:
+#     for j in i.career:
+#         career_list.append(str(j.name).lstrip().rstrip())
+
+# for i in range(0,200):
+#     temp_list = []
+#     for j in range(0,random.randint(5,30)):
+#         kk = random.randint(0,len(career_list)-1)
+#         if career_list[kk] not in temp_list:
+#             temp_list.append(career_list[kk])
+
+#     data = {
+#         'Username' : "User"+str(random.randint(1000,10000000)),
+#         'Password' : "Pass"+str(random.randint(1000,10000000)),
+#         'Searches' : temp_list
+#     }
+#     db.collection(u'Users').document().set(data)
+#     print(data)
+
+
+
+# left = [('Audiologist', 'Chemical and Petroleum Engineering'), ('Audiologist', 'Home Science'), ('Chemical and Petroleum Engineering', 'Home Science'), ('Gender/Women Studies', 'Jewellery Design'), ('Gender/Women Studies', 'Marine Biology'), ('Jewellery Design', 'Marine Biology'), ('Instructional Design', 'UX Design'), ('Instructional Design', 'Video/Radio Jockey'), ('UX Design', 'Video/Radio Jockey'), ('Instructional Design', 'Mass Communication'), ('Mass Communication', 'Video/Radio Jockey'), ('Astronomy', 'Hotel Management'), ('Astronomy', 'Mass Communication'), ('Hotel Management', 'Mass Communication'), ('Agricultural Engineering', 'Homeopathy'), ('Agricultural Engineering', 'Microbiology'), ('Homeopathy', 'Microbiology'), ('Indian Army', 'Textile and Apparel Design'), ('Indian Army', 'Web Design'), ('Textile and Apparel Design', 'Web Design'), ('CS, IT and Software Engineering', 'Pilot'), ('CS, IT and Software Engineering', 'Veterinarian'), ('Pilot', 'Veterinarian'), ('Chemistry', 'Homeopathy'), ('Chemistry', 'Product Design'), ('Homeopathy', 'Product Design'), ('Astronomy', 'Biophysics'), ('Astronomy', 'Certified Public Accountant'), ('Biophysics', 'Certified Public Accountant'), ('Market Research', 'Pharmacy'), ('Market Research', 'Photography'), ('Pharmacy', 'Photography')]
+# right = [('Home Science',), ('Chemical and Petroleum Engineering',), ('Audiologist',), ('Marine Biology',), ('Jewellery Design',), ('Gender/Women Studies',), ('Video/Radio Jockey',), ('Mass Communication',), ('Instructional Design',), ('Video/Radio Jockey',), ('Instructional Design',), ('Mass Communication',), ('Hotel Management',), ('Astronomy',), ('Microbiology',), ('Homeopathy',), ('Agricultural Engineering',), ('Web Design',), ('Textile and Apparel Design',), ('Indian Army',), ('Veterinarian',), ('Pilot',), ('CS, IT and Software Engineering',), ('Product Design',), ('Homeopathy',), ('Chemistry',), ('Certified Public Accountant',), ('Biophysics',), ('Astronomy',), ('Photography',), ('Pharmacy',), ('Market Research',)]
+# for i in range(0,len(left)):
+#     data = {
+#         'left' : list(left[i]),
+#         'right' : list(right[i])
+#     }
+#     db.collection(u'Recommendation').document().set(data)
+#     print(data)
+#     
+
+
+# file = open('mindler','r')
+# data2 = file.readlines()
+
+# for i in range(0,len(data2)):
+#     temp = data2[i].split(",")
+#     data = db.collection(u'AllCareers').where('name','==', temp[0]).get()
+#     for doc in data:
+#         print(doc.id)
+#         data3 = {
+#             'Artistic' : temp[1],
+#             'Conventional' : temp[2],
+#             'Enterprising' : temp[3],
+#             'Investigative' : temp[4],
+#             'Realistic' : temp[5],
+#             'Social' : temp[6] 
+#         }
+#         db.collection(u'AllCareers').document(doc.id).update(data3)
