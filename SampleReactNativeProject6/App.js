@@ -13,6 +13,7 @@ import CareerDetail from './components/CareerDetail';
 import chat_ui from './components/chat/chat_ui';
 import Register from './components/Register';
 import psycho from './components/psycho';
+import psycho2 from './components/psycho2';
 const RootStack = createStackNavigator(
   {
     Board: BoardScreen,
@@ -26,7 +27,8 @@ const RootStack = createStackNavigator(
     FieldCareers: FieldCareers,
     CareerDetail: CareerDetail,
     Register: Register,
-    psycho: psycho
+    psycho: psycho,
+    psycho2: psycho2
   },
   {
     initialRouteName: 'Board',

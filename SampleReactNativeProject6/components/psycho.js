@@ -16,7 +16,7 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
         constructor(props) {
           super(props);
           this.state = {
-
+            // isLoading: false
           };
         }
         updateTextInput = (text, field) => {
@@ -30,7 +30,7 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
            // const questions = ["question1","question2"];
           const questions = this.props.navigation.getParam('QuestionList');
           const ques = this.props.navigation.getParam('Questionno');
-          const q = ques+1;
+          let q = ques+1;
           let Artistic= this.props.navigation.getParam('Artistic');
           let Conventional= this.props.navigation.getParam('Conventional');
           let Enterprising= this.props.navigation.getParam('Enterprising');
@@ -49,94 +49,170 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
               if(questions[ques-1].Tag=="Social") Social++;
             }
 
+          }
+          
+          if(q==questions.length)
+          {
+            let arr = [];
+            let listchoices = [];
+            let carchoice = "Best career choices for you are : ";
+            arr.push({'score': Artistic, 'name' : 'Artistic'});
+            arr.push({'score': Conventional, 'name': 'Conventional'});
+            arr.push({'score': Enterprising, 'name' : 'Enterprising'});
+            arr.push({'score': Investigative, 'name' : 'Investigative'});
+            arr.push({'score': Realistic, 'name' : 'Realistic'});
+            arr.push({'score': Social, 'name' : 'Social'});
+            arr.sort(function(a,b){
+              return a.score > b.score ? 1 : -1;
+            });
+
             firebase.firestore().collection("AllCareers")
+                .where(arr[0].name,'>=',arr[0].score-1)
+                .where(arr[0].name,'<=',arr[0].score+1)
                 .get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
                         if(doc.exists)
                         {
                           data = doc.data();
+                          if(data[arr[1].name]>=arr[1].score-1 && data[arr[1].name]<=arr[1].score+1)
+                          {
+                            listchoices.push(data.name);
+                            carchoice += data.name+", ";
+                          }
                         }
                     });
-            })
+                })
 
-          }
-          
-          if(ques==questions.length)
-          {
-            return(
+
+            return (
               <ScrollView style={styless.container}>
-                <View style={styless.question}>
-                <Card style={{borderRadius:15}}>
-                        <CardTitle 
-                          title={<Text style={{fontSize:40}}>{"Final Score : "}</Text>}
-                          titleStyle={{fontSize:200}}
-                          style={{marginTop:10,marginBottom:100,fontSize:200}}
-                         />
-                        <CardContent text={<Text style={{fontSize:20,fontStyle: 'italic'}}>{'Artistic : '+Artistic+'\nConventional : '+Conventional+'\nEnterprising : '+Enterprising+'\nInvestigative : '+Investigative+'\nRealistic : '+Realistic+'\nSocial : '+Social}</Text>} />  
-                      </Card>
-                </View>
+              <View style={styless.question}>
+              <Card style={{borderRadius:15}}>
+                      <CardTitle 
+                        title={<Text style={{fontSize:40}}>{"Question "+ q }</Text>}
+                        titleStyle={{fontSize:200}}
+                        style={{marginTop:10,marginBottom:100,fontSize:200}}
+                       />
+                      <CardContent text={<Text style={{fontSize:20,fontStyle: 'italic'}}>{questions[ques].Question}</Text>} />  
+                    </Card>
+              </View>
+                    <View style={styless.container3}>
+                      <View style={styless.container4}>
+                          <Button buttonStyle={styless.button}
+                          type="outline"
+                          large
+                        //  leftIcon={{name: 'list'}}
+                          title={<Text style= {{color:'#000000'}}>Yes</Text>}
+                          onPress={() => {
+                            that = this;
+                            setTimeout(function(){
+                              that.props.navigation.navigate('psycho2',{
+                                QuestionList:that.props.navigation.getParam('QuestionList'),
+                                Questionno:that.props.navigation.getParam('Questionno')+1,
+                                answer: 'yes',
+                                Artistic: Artistic,
+                                Conventional: Conventional,
+                                Enterprising: Enterprising,
+                                Investigative: Investigative,
+                                Realistic: Realistic,
+                                Social: Social,
+                                Carchoice: carchoice
+                              });
+                            },4000);
+                          }}
+                          />
+                      </View>
+                      <View style={styless.container4}>
+                          <Button buttonStyle={styless.button}
+                          large
+                          type="outline"
+                        //  leftIcon={{name: 'face'}}
+                          title={<Text style= {{color:'#000000'}}>No </Text>}
+                          onPress={() => {
+                            that = this;
+                            setTimeout(function(){
+                              that.props.navigation.navigate('psycho2',{
+                                QuestionList:that.props.navigation.getParam('QuestionList'),
+                                Questionno:that.props.navigation.getParam('Questionno')+1,
+                                answer: 'no',
+                                Artistic: Artistic,
+                                Conventional: Conventional,
+                                Enterprising: Enterprising,
+                                Investigative: Investigative,
+                                Realistic: Realistic,
+                                Social: Social,
+                                Carchoice: carchoice
+                              });
+                            },4000);
+                          }} />
+                      </View>
+                  </View>
+               
               </ScrollView>
-            )
+            );
           }
-          return (
-            <ScrollView style={styless.container}>
-            <View style={styless.question}>
-            <Card style={{borderRadius:15}}>
-                    <CardTitle 
-                      title={<Text style={{fontSize:40}}>{"Question "+ q }</Text>}
-                      titleStyle={{fontSize:200}}
-                      style={{marginTop:10,marginBottom:100,fontSize:200}}
-                     />
-                    <CardContent text={<Text style={{fontSize:20,fontStyle: 'italic'}}>{questions[ques].Question}</Text>} />  
-                  </Card>
-            </View>
-                  <View style={styless.container3}>
-                    <View style={styless.container4}>
-                        <Button buttonStyle={styless.button}
-                        type="outline"
-                        large
-                      //  leftIcon={{name: 'list'}}
-                        title={<Text style= {{color:'#000000'}}>Yes</Text>}
-                        onPress={() => {
-                            this.props.navigation.navigate('psycho',{
-                            QuestionList:this.props.navigation.getParam('QuestionList'),
-                            Questionno:this.props.navigation.getParam('Questionno')+1,
-                            answer: 'yes',
-                            Artistic: Artistic,
-                            Conventional: Conventional,
-                            Enterprising: Enterprising,
-                            Investigative: Investigative,
-                            Realistic: Realistic,
-                            Social: Social
-                        });
-                        }}
-                        />
-                    </View>
-                    <View style={styless.container4}>
-                        <Button buttonStyle={styless.button}
-                        large
-                        type="outline"
-                      //  leftIcon={{name: 'face'}}
-                        title={<Text style= {{color:'#000000'}}>No </Text>}
-                        onPress={() => {
-                        this.props.navigation.navigate('psycho',{
-                            QuestionList:this.props.navigation.getParam('QuestionList'),
-                            Questionno:this.props.navigation.getParam('Questionno')+1,
-                            answer: 'no',
-                            Artistic: Artistic,
-                            Conventional: Conventional,
-                            Enterprising: Enterprising,
-                            Investigative: Investigative,
-                            Realistic: Realistic,
-                            Social: Social
-                        });
-                        }} />
-                    </View>
-                </View>
-             
-            </ScrollView>
-          );
+          else
+          {
+            return (
+              <ScrollView style={styless.container}>
+              <View style={styless.question}>
+              <Card style={{borderRadius:15}}>
+                      <CardTitle 
+                        title={<Text style={{fontSize:40}}>{"Question "+ q }</Text>}
+                        titleStyle={{fontSize:200}}
+                        style={{marginTop:10,marginBottom:100,fontSize:200}}
+                       />
+                      <CardContent text={<Text style={{fontSize:20,fontStyle: 'italic'}}>{questions[ques].Question}</Text>} />  
+                    </Card>
+              </View>
+                    <View style={styless.container3}>
+                      <View style={styless.container4}>
+                          <Button buttonStyle={styless.button}
+                          type="outline"
+                          large
+                        //  leftIcon={{name: 'list'}}
+                          title={<Text style= {{color:'#000000'}}>Yes</Text>}
+                          onPress={() => {
+                              this.props.navigation.navigate('psycho',{
+                              QuestionList:this.props.navigation.getParam('QuestionList'),
+                              Questionno:this.props.navigation.getParam('Questionno')+1,
+                              answer: 'yes',
+                              Artistic: Artistic,
+                              Conventional: Conventional,
+                              Enterprising: Enterprising,
+                              Investigative: Investigative,
+                              Realistic: Realistic,
+                              Social: Social
+                          });
+                          }}
+                          />
+                      </View>
+                      <View style={styless.container4}>
+                          <Button buttonStyle={styless.button}
+                          large
+                          type="outline"
+                        //  leftIcon={{name: 'face'}}
+                          title={<Text style= {{color:'#000000'}}>No </Text>}
+                          onPress={() => {
+                          this.props.navigation.navigate('psycho',{
+                              QuestionList:this.props.navigation.getParam('QuestionList'),
+                              Questionno:this.props.navigation.getParam('Questionno')+1,
+                              answer: 'no',
+                              Artistic: Artistic,
+                              Conventional: Conventional,
+                              Enterprising: Enterprising,
+                              Investigative: Investigative,
+                              Realistic: Realistic,
+                              Social: Social
+                          });
+                          }} />
+                      </View>
+                  </View>
+               
+              </ScrollView>
+            );
+          }
         }
       }
       

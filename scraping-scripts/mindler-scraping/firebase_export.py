@@ -216,11 +216,11 @@ for i in inp:
 #     for doc in data:
 #         print(doc.id)
 #         data3 = {
-#             'Artistic' : temp[1],
-#             'Conventional' : temp[2],
-#             'Enterprising' : temp[3],
-#             'Investigative' : temp[4],
-#             'Realistic' : temp[5],
-#             'Social' : temp[6] 
+#             'Artistic' : float(temp[1]),
+#             'Conventional' : float(temp[2]),
+#             'Enterprising' : float(temp[3]),
+#             'Investigative' : float(temp[4]),
+#             'Realistic' : float(temp[5]),
+#             'Social' : float(temp[6]) 
 #         }
 #         db.collection(u'AllCareers').document(doc.id).update(data3)
