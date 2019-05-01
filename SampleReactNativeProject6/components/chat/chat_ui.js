@@ -53,7 +53,8 @@ class chat_ui extends React.Component {
       isVoiceOn: false,
       col_loc: [],
       issuggested: false,
-      askedcareers: []
+      askedcareers: [],
+      suggestedcareers : []
     };
 
     this.getDistance = this.getDistance.bind(this);
@@ -408,9 +409,18 @@ class chat_ui extends React.Component {
     }
     else
     {
-      for(var i=0;i<this.state.results.length;i++)
-        this.onReceive(this.state.results[i].speech);
-
+      if(qu[0].result.metadata.intentName=="Career-stream")
+      {
+        var num = this.state.results.length;
+        if(num > 20) num = 20;
+        for(var i=0;i<num;i++)
+          this.onReceive(this.state.results[i].speech);
+      }
+      else
+      {
+        for(var i=0;i<this.state.results.length;i++)
+          this.onReceive(this.state.results[i].speech);
+      }
       var issuggested = false;
       var that = this;
       if(!this.state.issuggested)
@@ -443,8 +453,21 @@ class chat_ui extends React.Component {
                     //console.log(count);
                     if(count==dataleft.length)
                     {
-                      that.onReceive("You my also search for career like : "+dataright[0]);
-                      issuggested = true;
+                      var k = 0;
+                      for(k=0;k<that.state.suggestedcareers.length;k++)
+                      {
+                        if(dataright[0]==that.state.suggestedcareers[k]) break;
+                      }
+                      if(k==that.state.suggestedcareers.length)
+                      {
+                        that.onReceive("You my also search for career like : "+dataright[0]);
+                        //issuggested = true;
+                        var tempArr = that.state.suggestedcareers;
+                        tempArr.push(dataright[0]);
+                        that.setState({
+                          suggestedcareers: tempArr
+                        });
+                      }
                     }
                     //console.log("!!!!!!!!!!!!!!!!!!!");
                     //console.log(dataleft);

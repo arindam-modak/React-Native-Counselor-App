@@ -75,7 +75,7 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
                         if(doc.exists)
                         {
                           data = doc.data();
-                          if(data[arr[1].name]>=arr[1].score-1 && data[arr[1].name]<=arr[1].score+1)
+                          if(data[arr[1].name]>=arr[1].score-1 && data[arr[1].name]<=arr[1].score+1 && data[arr[2].name]>=arr[2].score-1.5 && data[arr[2].name]<=arr[2].score+1.5)
                           {
                             listchoices.push(data.name);
                             carchoice += data.name+", ";

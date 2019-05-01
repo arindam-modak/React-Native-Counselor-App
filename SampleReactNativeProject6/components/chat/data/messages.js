@@ -1,8 +1,16 @@
 module.exports = [
-  
   {
     _id: Math.round(Math.random() * 1000000),
-    text: 'If you are using the bot for first time you may start by asking : get started',
+    text: 'Start by saying : Hi',
+    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+    user: {
+      _id: 2,
+      name: 'Chat Bot',
+    },
+  },
+  {
+    _id: Math.round(Math.random() * 1000000),
+    text: 'If you are using the bot for first time you may start by saying : get started',
     createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
     user: {
       _id: 2,
