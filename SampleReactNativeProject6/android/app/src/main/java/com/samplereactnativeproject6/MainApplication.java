@@ -3,6 +3,7 @@ package com.samplereactnativeproject6;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import de.innfactory.apiai.RNApiAiPackage;
 import com.wenkesj.voice.VoicePackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SvgPackage(),
             new LinearGradientPackage(),
             new RNApiAiPackage(),
             new VoicePackage(),

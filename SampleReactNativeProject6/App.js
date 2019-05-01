@@ -14,6 +14,8 @@ import chat_ui from './components/chat/chat_ui';
 import Register from './components/Register';
 import psycho from './components/psycho';
 import psycho2 from './components/psycho2';
+import popularCareers from './components/popularCareers';
+
 const RootStack = createStackNavigator(
   {
     Board: BoardScreen,
@@ -28,7 +30,8 @@ const RootStack = createStackNavigator(
     CareerDetail: CareerDetail,
     Register: Register,
     psycho: psycho,
-    psycho2: psycho2
+    psycho2: psycho2,
+    popularCareers: popularCareers
   },
   {
     initialRouteName: 'Board',

@@ -77,6 +77,8 @@
 		4A3E82820F994BDFA7705B59 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E344941F421347C5A0663BB1 /* Zocial.ttf */; };
 		0573944271344B8B9937826C /* libApiAi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 498F607DC28747C79428ADF0 /* libApiAi.a */; };
 		2CC6917263E9455F8C1A340E /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C71AA0106B3C456EB479F5E9 /* libBVLinearGradient.a */; };
+		9BBB9DC901D6408F8E439518 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D25431AB53434326B6AF553C /* libRNSVG.a */; };
+		5A31BCE82894487EA4559888 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7EAB164B4D4C81BC9A07C5 /* libRNSVG-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -428,6 +430,9 @@
 		498F607DC28747C79428ADF0 /* libApiAi.a */ = {isa = PBXFileReference; name = "libApiAi.a"; path = "libApiAi.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		992DF1ED54B340E79D93EEB0 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; name = "BVLinearGradient.xcodeproj"; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		C71AA0106B3C456EB479F5E9 /* libBVLinearGradient.a */ = {isa = PBXFileReference; name = "libBVLinearGradient.a"; path = "libBVLinearGradient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		7E78500C1B84428488502253 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		D25431AB53434326B6AF553C /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4E7EAB164B4D4C81BC9A07C5 /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -461,6 +466,7 @@
 				CBA3C89A51AC4AC58026D908 /* libVoice.a in Frameworks */,
 				0573944271344B8B9937826C /* libApiAi.a in Frameworks */,
 				2CC6917263E9455F8C1A340E /* libBVLinearGradient.a in Frameworks */,
+				9BBB9DC901D6408F8E439518 /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,6 +483,7 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				7C1E5C0F02E44FB7A449A057 /* libRNVectorIcons-tvOS.a in Frameworks */,
+				5A31BCE82894487EA4559888 /* libRNSVG-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -654,6 +661,7 @@
 				93E86A03102B4A1AB55025B8 /* Voice.xcodeproj */,
 				85B082942CC6421187443833 /* ApiAi.xcodeproj */,
 				992DF1ED54B340E79D93EEB0 /* BVLinearGradient.xcodeproj */,
+				7E78500C1B84428488502253 /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1363,6 +1371,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1372,6 +1382,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-voice\ios\Voice",
 					"$(SRCROOT)\..\node_modules\react-native-dialogflow\ios\ApiAi",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Debug;
@@ -1400,6 +1411,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1409,6 +1422,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-voice\ios\Voice",
 					"$(SRCROOT)\..\node_modules\react-native-dialogflow\ios\ApiAi",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Release;
@@ -1437,6 +1451,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-voice\ios\Voice",
 					"$(SRCROOT)\..\node_modules\react-native-dialogflow\ios\ApiAi",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Debug;
@@ -1464,6 +1479,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-voice\ios\Voice",
 					"$(SRCROOT)\..\node_modules\react-native-dialogflow\ios\ApiAi",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Release;
@@ -1500,6 +1516,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1509,6 +1527,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-voice\ios\Voice",
 					"$(SRCROOT)\..\node_modules\react-native-dialogflow\ios\ApiAi",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Debug;
@@ -1545,6 +1564,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1554,6 +1575,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-voice\ios\Voice",
 					"$(SRCROOT)\..\node_modules\react-native-dialogflow\ios\ApiAi",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Release;
@@ -1589,6 +1611,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1598,6 +1622,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-voice\ios\Voice",
 					"$(SRCROOT)\..\node_modules\react-native-dialogflow\ios\ApiAi",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Debug;
@@ -1633,6 +1658,8 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1642,6 +1669,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-voice\ios\Voice",
 					"$(SRCROOT)\..\node_modules\react-native-dialogflow\ios\ApiAi",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
+					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 				);
 			};
 			name = Release;

@@ -147,6 +147,17 @@ class BoardScreen extends Component {
               </View>
               <View style={{padding:20,flex:0.3}}>
                 <Button buttonStyle={styles.button}
+                type="outline"
+                large
+                leftIcon={{name: 'list'}}
+                title='Popular Careers'
+                onPress={() => {
+                  this.props.navigation.navigate('popularCareers');
+                }}
+                />
+              </View>
+              <View style={{padding:20,flex:0.3}}>
+                <Button buttonStyle={styles.button}
                   type="outline"
                   large
                   leftIcon={{name: 'list'}}
@@ -208,6 +219,17 @@ class BoardScreen extends Component {
                     Realistic: 0,
                     Social: 0
                   });
+                }}
+                />
+            </View>
+            <View style={{padding:20,flex:0.3}}>
+                <Button buttonStyle={styles.button}
+                type="outline"
+                large
+                leftIcon={{name: 'list'}}
+                title='Popular Careers'
+                onPress={() => {
+                  this.props.navigation.navigate('popularCareers');
                 }}
                 />
             </View>
