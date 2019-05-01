@@ -2,11 +2,20 @@ module.exports = [
   
   {
     _id: Math.round(Math.random() * 1000000),
-    text: 'Tell me about the apportunities in Astronomy\n\n\nWhat are the pros of Arts?\n\n\nwhich is better option career1 or career2?',
+    text: 'If you are using the bot for first time you may start by asking : get started',
     createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
     user: {
       _id: 2,
-      name: 'React Native',
+      name: 'Chat Bot',
+    },
+  },
+  {
+    _id: Math.round(Math.random() * 1000000),
+    text: 'Tell me about Mechanical Engineering and Economics\n\nWhat are the pros of IT?\n\nCareer paths for film making\n\nBest colleges near delhi for astronomy\n\nImportant facts about Music',
+    createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
+    user: {
+      _id: 2,
+      name: 'Chat Bot',
     },
   },
   {
@@ -15,7 +24,7 @@ module.exports = [
     createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
     user: {
       _id: 2,
-      name: 'React Native',
+      name: 'Chat Bot',
     },
   },
   {
@@ -24,7 +33,7 @@ module.exports = [
     createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
     user: {
       _id: 2,
-      name: 'React Native',
+      name: 'Chat Bot',
     },
   },
   {
@@ -33,7 +42,7 @@ module.exports = [
     createdAt: new Date(Date.UTC(2016, 7, 30, 17, 20, 0)),
     user: {
       _id: 2,
-      name: 'React Native',
+      name: 'Chat Bot',
     },
   },
   

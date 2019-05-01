@@ -148,7 +148,12 @@ class chat_ui extends React.Component {
     var flag3 = 0;
     for(var i=0;i<askedcareers.length;i++)
     {
-      if(askedcareers[i]==qu[0].result.parameters.Carrer)
+      if(qu[0].result.parameters.Carrer && (!Array.isArray(qu[0].result.parameters.Carrer)) && askedcareers[i]==qu[0].result.parameters.Carrer)
+      {
+        flag3=1;
+        break;
+      }
+      else if(qu[0].result.parameters.Carrer && (Array.isArray(qu[0].result.parameters.Carrer)) && askedcareers[i]==qu[0].result.parameters.Carrer[0])
       {
         flag3=1;
         break;
@@ -156,35 +161,55 @@ class chat_ui extends React.Component {
     }
     if(qu[0].result.parameters.Carrer && flag3==0) 
     {
-      askedcareers.push(qu[0].result.parameters.Carrer);
+      if(!Array.isArray(qu[0].result.parameters.Carrer))
+        askedcareers.push(qu[0].result.parameters.Carrer);
+      else
+      {
+        askedcareers.push(qu[0].result.parameters.Carrer[0]);
+      }
       this.setState({
         askedcareers : askedcareers
       })
     }
+
     //console.log("askedcareers : "+askedcareers);
 
     AsyncStorage.getItem('Username').then((username) => {
+      console.log("**********************");
       firebase.firestore().collection("Users").where("Username", "==", username)
         .get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
-                //console.log(doc.id, " => ", doc.data());
+                console.log("&&&&&&&&&&&&&&&&&&&&&&&&");
+                console.log(doc.id, " => ", doc.data());
                 let searches = doc.data().Searches;
                 if(!searches) searches = [];
                 var flag=0;
                 //console.log("11111111111111111111");
                 for(var i=0;i<searches.length;i++)
                 {
-                  if(searches[i] == qu[0].result.parameters.Carrer)
+                  if(qu[0].result.parameters.Carrer && (!Array.isArray(qu[0].result.parameters.Carrer)))
+                    if(searches[i] == qu[0].result.parameters.Carrer)
+                    {
+                      flag=1;
+                      break;
+                    }
+                  else
                   {
-                    flag=1;
-                    break;
+                    if(qu[0].result.parameters.Carrer && searches[i] == qu[0].result.parameters.Carrer[0])
+                    {
+                      flag=1;
+                      break;
+                    }
                   }
                 }
                 //console.log("22222222222222222222222");
                 if(flag==0 && qu[0].result.parameters.Carrer)
                 {
-                  searches.push(qu[0].result.parameters.Carrer);
+                  if(!Array.isArray(qu[0].result.parameters.Carrer))
+                    searches.push(qu[0].result.parameters.Carrer);
+                  else
+                    searches.push(qu[0].result.parameters.Carrer[0]);
                   firebase.firestore().collection("Users").doc(doc.id).update({'Searches': searches});
                 }
                 //console.log("333333333333333333333333");
@@ -375,7 +400,8 @@ class chat_ui extends React.Component {
 
             }
 
-            that2.onReceive("Did you meant something like this: "+phrase);
+            if(phrase!="")
+              that2.onReceive("Did you meant something like this: "+phrase);
 
         });
        }, 4000);
@@ -500,7 +526,7 @@ class chat_ui extends React.Component {
           createdAt: new Date(),
           user: {
             _id: 2,
-            name: 'React Native',
+            name: 'Chat Bot',
             // avatar: 'https://facebook.github.io/react/img/logo_og.png',
           },
         }),
@@ -588,7 +614,6 @@ class chat_ui extends React.Component {
           _id: 1, // sent messages should have same user._id
         }}
 
-        renderActions={this.renderCustomActions}
         renderBubble={this.renderBubble}
         renderSystemMessage={this.renderSystemMessage}
         renderFooter={this.renderFooter}

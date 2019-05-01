@@ -6,7 +6,7 @@ import {AsyncStorage} from 'react-native';
 
 class Register extends Component {
   static navigationOptions = {
-    title: 'Register',
+    title: 'Login',
   };
   constructor() {
     super();
@@ -42,10 +42,17 @@ class Register extends Component {
             Password: that.state.Password,
         })
     }, 2000);
+    setTimeout(function afterTwoSeconds() {
 
-    
+      that.props.navigation.navigate('Board');
+
+    }, 4000);
     try {
       AsyncStorage.setItem('Username', this.state.Username);
+      this.props.navigation.getParam('boardState').setState({
+        loggedIn: true,
+        username: this.state.Username
+      });
     } catch (error) {
       console.error('AsyncStorage error: ' + error.message);
     }
