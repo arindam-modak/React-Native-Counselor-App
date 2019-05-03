@@ -248,7 +248,7 @@ class Field:
         name = div.find('h4')
         self.name = name.text.lstrip().rstrip()
         self.career = []
-        div = soup.find('div',id="library-data-bucket",class_="cl-row search-topics last-page")
+        divf = soup.find('div',id="library-data-bucket",class_="cl-row search-topics last-page")
         temp = div.find_all('a')
         urls = []
         for i in temp:

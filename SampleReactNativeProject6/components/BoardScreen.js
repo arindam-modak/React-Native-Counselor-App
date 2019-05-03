@@ -60,6 +60,9 @@ class BoardScreen extends Component {
                 }
             });
     })
+    .catch(function (error) {
+         this.props.navigation.navigate('board');
+    });
     AsyncStorage.getItem('Username').then((username) => {
       that.setState({
         loggedIn : true,

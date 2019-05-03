@@ -15,12 +15,7 @@ import {AsyncStorage} from 'react-native';
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
-      "projectId": "counselling-bot-10fda",
-      "apiKey": "AIzaSyA1QuFJ-oeqLp0Q0akmBPVy9YUY84cxsoc",
-      "authDomain": "counselling-bot-10fda.firebaseapp.com",
-      "databaseURL": "https://counselling-bot-10fda.firebaseio.com",
-      "storageBucket": "counselling-bot-10fda.appspot.com",
-      "messagingSenderId": "984760016813"
+      
   })
 }
 const db = firebase.firestore();
@@ -131,6 +126,13 @@ class chat_ui extends React.Component {
 
 
   updateResult = (qu) => {
+
+    if(!qu[0])
+    {
+      this.onReceive("Please check your internet connectivity!! and refresh");
+      return ;
+    }
+
     this.setState({
         results: qu[0].result.fulfillment.messages,
         query: ""
@@ -227,7 +229,7 @@ class chat_ui extends React.Component {
         promises.push(
           new Promise((resolve, reject) => {
             resolve(
-              fetch('https://www.mapquestapi.com/geocoding/v1/address?key=%20rZiYsbTVoDtG20gAtHZxaXarvFdpbCTH&location='+location)
+              fetch('https://www.mapquestapi.com/geocoding/v1/address?key= &location='+location)
                 .then(function(response) {
                   //console.log(JSON.parse(response._bodyText));
                   var responseJson = JSON.parse(response._bodyText);
@@ -260,7 +262,7 @@ class chat_ui extends React.Component {
               promises.push(
                 new Promise((resolve, reject) => {
                   resolve(
-                    fetch('https://www.mapquestapi.com/geocoding/v1/address?key=%20rZiYsbTVoDtG20gAtHZxaXarvFdpbCTH&location='+description[i].location)
+                    fetch('https://www.mapquestapi.com/geocoding/v1/address?key= &location='+description[i].location)
                       .then(function(response) {
                         //console.log(JSON.parse(response._bodyText));
                         var responseJson = JSON.parse(response._bodyText);
@@ -324,7 +326,7 @@ class chat_ui extends React.Component {
               promises.push(
                 new Promise((resolve, reject) => {
                   resolve(
-                    fetch('https://api.dandelion.eu/datatxt/sim/v1/?text1='+phrases[i]+'&text2='+qu[0].result.resolvedQuery+'&token=d4d102846e654c9cbadf563f814ee850')
+                    fetch('https://api.dandelion.eu/datatxt/sim/v1/?text1='+phrases[i]+'&text2='+qu[0].result.resolvedQuery+'&token= ')
                       .then(function(response) {
                         //console.log(response);
                         console.log(JSON.parse(response._bodyText));

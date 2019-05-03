@@ -68,6 +68,9 @@ class popularCareers extends Component {
                 }
             });
     })
+    .catch(function (error) {
+         this.props.navigation.navigate('board');
+     });
     
     setTimeout(function afterTwoSeconds() {
       console.log(tempDict);
@@ -83,29 +86,39 @@ class popularCareers extends Component {
     setTimeout(function afterTwoSeconds() {
       console.log("!!!!!!!!!!!!!!!!!!!");
       console.log(tempArr);
-      tempArr.sort(function(a, b){
-          return b.times - a.times;
-      });
-      
+      if(tempArr)
+      {
+        tempArr.sort(function(a, b){
+            return b.times - a.times;
+        });
+      }
     }, 5000);
 
     setTimeout(function afterTwoSeconds() {
       var tempData = [];
-      for(var i=0;i<10;i++)
+      var total = 0.0;
+      if(tempArr)
       {
-        tempData.push({'name': tempArr[i]['name'], 'times': tempArr[i]['times'], color: that.getRandomColor(), legendFontColor: '#7F7F7F', legendFontSize: 15});
+        for(var i=0;i<10;i++)
+        {
+          total += tempArr[i]['times'];
+        }
+        for(var i=0;i<10;i++)
+        {
+          tempData.push({'name': '% '+tempArr[i]['name'], 'times': Math.round((tempArr[i]['times']/total)*100), color: that.getRandomColor(), legendFontColor: '#7F7F7F', legendFontSize: 15});
+        }
+        that.setState({
+          isLoading : false,
+          data : tempData 
+        });
       }
-      that.setState({
-        isLoading : false,
-        data : tempData 
-      });
     }, 7000);
 
   }
 
   render() {
 
-    const screenWidth = Dimensions.get('window').width;
+    const screenWidth = Dimensions.get('window').width - 20;
 
     chartConfig={
       backgroundColor: '#e26a00',

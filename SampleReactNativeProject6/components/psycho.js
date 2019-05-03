@@ -63,26 +63,28 @@ import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 
             arr.push({'score': Realistic, 'name' : 'Realistic'});
             arr.push({'score': Social, 'name' : 'Social'});
             arr.sort(function(a,b){
-              return a.score > b.score ? 1 : -1;
+              return (b.score - a.score);
             });
 
-            firebase.firestore().collection("AllCareers")
-                .where(arr[0].name,'>=',arr[0].score-1)
-                .where(arr[0].name,'<=',arr[0].score+1)
-                .get()
-                .then(function(querySnapshot) {
-                    querySnapshot.forEach(function(doc) {
-                        if(doc.exists)
-                        {
-                          data = doc.data();
-                          if(data[arr[1].name]>=arr[1].score-1 && data[arr[1].name]<=arr[1].score+1 && data[arr[2].name]>=arr[2].score-1.5 && data[arr[2].name]<=arr[2].score+1.5)
+            setTimeout(function(){
+              firebase.firestore().collection("AllCareers")
+                  .where(arr[0].name,'>=',arr[0].score-1.34)
+                  .where(arr[0].name,'<=',arr[0].score+1.34)
+                  .get()
+                  .then(function(querySnapshot) {
+                      querySnapshot.forEach(function(doc) {
+                          if(doc.exists)
                           {
-                            listchoices.push(data.name);
-                            carchoice += data.name+", ";
+                            data = doc.data();
+                            if(data[arr[1].name]>=arr[1].score-1.5 && data[arr[1].name]<=arr[1].score+1.5 && data[arr[2].name]>=arr[2].score-2 && data[arr[2].name]<=arr[2].score+2 && data[arr[3].name]>=arr[3].score-2.5 && data[arr[3].name]<=arr[3].score+2.5)
+                            {
+                              listchoices.push(data.name);
+                              carchoice += data.name+", ";
+                            }
                           }
-                        }
-                    });
-                })
+                      });
+                  })
+              }, 1000);
 
 
             return (
